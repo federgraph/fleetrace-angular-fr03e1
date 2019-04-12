@@ -1,0 +1,6 @@
+{
+  "/api": {
+    "target": "http://gshp:3000",
+    "secure": false
+  }
+}
