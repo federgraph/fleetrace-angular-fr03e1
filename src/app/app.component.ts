@@ -1,4 +1,4 @@
-﻿import { Component, ViewChild, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef, OnInit } from '@angular/core';
 
 import { BibComponent } from './bib/bib.component';
 import { EventComponent } from './event/event.component';
@@ -9,7 +9,7 @@ import { TimingButtonsComponent } from './timing-buttons/timing-buttons.componen
 import { EventProps, EventParams } from './shared/data-model';
 import { TExcelExporter } from '../fr/fr-excel-export';
 import { TableID } from '../fr/fr-excel-importer';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CurrentNumbers } from '../fr/fr-bo';
 import { IconData, PreTextIcons, TextAreaIcons } from './icon-legend/icon-data';
 import { ConnectionControlComponent } from './connection-control/connection-control.component';
@@ -84,17 +84,13 @@ export class AppComponent {
   ParamsVisible = false;
   PropsVisible = false;
 
-  @ViewChild('eventTab')
-  eventTab: EventComponent;
+  @ViewChild('eventTab', { static: false })  eventTab: EventComponent;
 
-  @ViewChild('timingTab')
-  timingTab: TimingButtonsComponent;
+  @ViewChild('timingTab', { static: false })  timingTab: TimingButtonsComponent;
 
-  @ViewChild('bibInfo')
-  bibTab: BibComponent;
+  @ViewChild('bibInfo', { static: false })  bibTab: BibComponent;
 
-  @ViewChild('connBar')
-  connBar: ConnectionControlComponent;
+  @ViewChild('connBar', { static: false })  connBar: ConnectionControlComponent;
 
   private SL: TStringList;
   private Asset: IEventDataItem;
