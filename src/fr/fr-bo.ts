@@ -1,30 +1,30 @@
-﻿import { TBaseBO } from "../bo/bo-base";
-import { TBOManager } from "../bo/bo-manager";
-import { TBOMsg } from "../bo/bo-msg";
-import { TBaseMsg } from "../bo/bo-msg-base";
-import { TMsgFactory } from "../bo/bo-msg-list";
-import { TMsgToken } from "../bo/bo-msg-token";
-import { TDivision, TInputAction, TInputActionManager, TMsgTree, TRun } from "../bo/bo-msg-tree";
-import { TBOParams } from "../bo/bo-params";
-import { TCalcEvent } from "../calc/calc-ev";
-import { TPenaltyISAF, TISAFPenaltyDSQ } from "../calc/penalty-isaf";
-import { TEventBO } from "../col/event/event-bo";
-import { TEventRaceEntry } from "../col/event/event-race-entry";
-import { TEventNode, TEventRowCollection, TEventRowCollectionItem } from "../col/event/event-row-collection";
-import { TStammdatenBO } from "../col/stammdaten/stammdaten-bo";
-import { FieldNames } from "../col/stammdaten/stammdaten-fieldnames";
-import { TStammdatenNode } from "../col/stammdaten/stammdaten-node";
-import { TStammdatenRowCollection } from "../col/stammdaten/stammdaten-row-collection";
-import { TStammdatenRowCollectionItem } from "../col/stammdaten/stammdaten-row-collection-item";
-import { TColCaptions } from "../grid/col-captions";
-import { TUtils } from "../util/fb-classes";
-import { TProp } from "../util/fb-props";
-import { TStringList } from "../util/fb-strings";
-import { TEventProps, TInputModeStrings, TInputMode } from "./fr-event-props";
-import { TExcelExporter } from "./fr-excel-export";
-import { TExcelImporter, TableID } from "./fr-excel-importer";
-import { TIniImage } from "./fr-ini-image";
-import { TNodeList } from "./fr-node-list";
+﻿import { TBaseBO } from '../bo/bo-base';
+import { TBOManager } from '../bo/bo-manager';
+import { TBOMsg } from '../bo/bo-msg';
+import { TBaseMsg } from '../bo/bo-msg-base';
+import { TMsgFactory } from '../bo/bo-msg-list';
+import { TMsgToken } from '../bo/bo-msg-token';
+import { TDivision, TInputAction, TInputActionManager, TMsgTree, TRun } from '../bo/bo-msg-tree';
+import { TBOParams } from '../bo/bo-params';
+import { TCalcEvent } from '../calc/calc-ev';
+import { TPenaltyISAF, TISAFPenaltyDSQ } from '../calc/penalty-isaf';
+import { TEventBO } from '../col/event/event-bo';
+import { TEventRaceEntry } from '../col/event/event-race-entry';
+import { TEventNode, TEventRowCollection, TEventRowCollectionItem } from '../col/event/event-row-collection';
+import { TStammdatenBO } from '../col/stammdaten/stammdaten-bo';
+import { FieldNames } from '../col/stammdaten/stammdaten-fieldnames';
+import { TStammdatenNode } from '../col/stammdaten/stammdaten-node';
+import { TStammdatenRowCollection } from '../col/stammdaten/stammdaten-row-collection';
+import { TStammdatenRowCollectionItem } from '../col/stammdaten/stammdaten-row-collection-item';
+import { TColCaptions } from '../grid/col-captions';
+import { TUtils } from '../util/fb-classes';
+import { TProp } from '../util/fb-props';
+import { TStringList } from '../util/fb-strings';
+import { TEventProps, TInputModeStrings, TInputMode } from './fr-event-props';
+import { TExcelExporter } from './fr-excel-export';
+import { TExcelImporter, TableID } from './fr-excel-importer';
+import { TIniImage } from './fr-ini-image';
+import { TNodeList } from './fr-node-list';
 
 export enum BOIndexer {
     SNR,
@@ -64,7 +64,7 @@ export class TBO extends TBaseBO {
 
     msgQueueR: string[] = [];
     msgQueueE: string[] = [];
-  
+
     CurrentRace: number = 1;
     CurrentTP: number = 0;
     CurrentBib: number = 1;
@@ -78,7 +78,7 @@ export class TBO extends TBaseBO {
     UseOutputFilter: boolean = false;
     UseCompactFormat = true;
 
-    ConvertedData: string = "";
+    ConvertedData: string = '';
 
     FModified: boolean = false;
 
@@ -119,11 +119,11 @@ export class TBO extends TBaseBO {
 
         this.MsgFactory = new TMsgFactory(this.BOManager.BO);
 
-        this.MsgToken.cTokenA = "FR";
+        this.MsgToken.cTokenA = 'FR';
 
         this.MsgToken.DivisionName = this.BOParams.DivisionName;
 
-        this.CalcEV = new TCalcEvent(this.IniImage, this, TCalcEvent.ScoringProvider_Inline);
+        this.CalcEV = new TCalcEvent(this.IniImage, this, TCalcEvent.ScoringProviderInline);
 
         this.FNodeList = new TNodeList(this);
 
@@ -135,13 +135,14 @@ export class TBO extends TBaseBO {
         this.StammdatenBO = new TStammdatenBO(this);
         this.StammdatenNode = new TStammdatenNode(this.StammdatenBO, this);
         this.StammdatenNode.ColBO = this.StammdatenBO;
-        this.StammdatenNode.NameID = "Stammdaten";
+        this.StammdatenNode.NameID = 'Stammdaten';
         this.StammdatenBO.CurrentNode = this.StammdatenNode;
 
         // RaceData
         this.RaceData = new Array<boolean>(BOParams.RaceCount + 1);
-        for (let i = 0; i <= BOParams.RaceCount; i++)
+        for (let i = 0; i <= BOParams.RaceCount; i++) {
             this.RaceData[i] = true;
+        }
 
         // Event
         this.EventBO = new TEventBO(this);
@@ -149,7 +150,7 @@ export class TBO extends TBaseBO {
             this.EventBO,
             this,
         );
-        this.EventNode.NameID = "E";
+        this.EventNode.NameID = 'E';
         this.EventNode.StammdatenRowCollection = this.StammdatenNode.Collection;
         this.EventBO.CurrentNode = this.EventNode;
         this.FNodeList.AddEventNode(this.EventNode);
@@ -165,54 +166,56 @@ export class TBO extends TBaseBO {
 
     GetSNR(Index: number): number {
         const cr: TEventRowCollectionItem = this.EventNode.Collection.Items[Index];
-        if (cr != null)
+        if (cr != null) {
             return cr.SNR;
-        else
-            return -1;
+        }
+        return -1;
     }
 
     GetBib(Index: number): number {
         const cr: TEventRowCollectionItem = this.EventNode.Collection.Items[Index];
-        if (cr != null)
+        if (cr != null) {
             return cr.Bib;
-        else
-            return -1;
+        }
+        return -1;
     }
 
     GetQU(RaceIndex: number, Index: number): number {
         const cr: TEventRowCollectionItem = this.EventNode.Collection.Items[Index];
-        if (cr != null)
+        if (cr != null) {
             return cr.Race[RaceIndex].QU;
-        else
-            return 0;
+        }
+        return 0;
     }
 
     GetDG(RaceIndex: number, Index: number): number {
         const cr: TEventRowCollectionItem = this.EventNode.Collection.Items[Index];
-        if (cr != null)
+        if (cr != null) {
             return cr.Race[RaceIndex].DG;
-        else
-            return 0;
+        }
+        return 0;
     }
 
     GetOT(RaceIndex: number, Index: number): number {
         const cr: TEventRowCollectionItem = this.EventNode.Collection.Items[Index];
-        if (cr != null)
+        if (cr != null) {
             return cr.Race[RaceIndex].OTime;
-        else
-            return 0;
+        }
+        return 0;
     }
 
     SetSNR(Index: number, Value: number): void {
         const cr: TEventRowCollectionItem = this.EventNode.Collection.Items[Index];
-        if (cr)
+        if (cr) {
             cr.SNR = Value;
+        }
     }
 
     SetBib(Index: number, Value: number): void {
         const cr: TEventRowCollectionItem = this.EventNode.Collection.Items[Index];
-        if (cr)
+        if (cr) {
             cr.Bib = Value;
+        }
     }
 
     SetQU(RaceIndex: number, Index: number, Value: number): void {
@@ -261,10 +264,10 @@ export class TBO extends TBaseBO {
 
     GetPenalty(RaceIndex: number, Index: number): TPenaltyISAF {
         const cr: TEventRowCollectionItem = this.EventNode.Collection.Items[Index];
-        if (cr)
+        if (cr) {
             return cr.Race[RaceIndex].Penalty;
-        else
-            return null;
+        }
+        return null;
     }
 
     SetPenalty(RaceIndex: number, Index: number, Value: TPenaltyISAF): void {
@@ -291,9 +294,10 @@ export class TBO extends TBaseBO {
     }
 
     private SaveLine(sender: object, s: string): void {
-        if (TBO.FSLBackup)
-            // if (s !="")
+        if (TBO.FSLBackup) {
+            // if (s !='')
             TBO.FSLBackup.Add(s);
+        }
     }
 
     ClearList(rd: string): void {
@@ -364,37 +368,35 @@ export class TBO extends TBaseBO {
 
         const bo: TStammdatenBO = this.StammdatenBO;
 
-        if (Cmd.includes("Prop_")) {
+        if (Cmd.includes('Prop_')) {
             const Key: string = Cmd.substring(5, Cmd.length);
             cr.Props[Key] = value;
-        }
-        else if (Cmd === FieldNames.FN || Cmd === "FN")
+        } else if (Cmd === FieldNames.FN || Cmd === 'FN') {
             v = bo.EditFN(cr, v);
-        else if (Cmd === FieldNames.LN || Cmd === "LN")
+        } else if (Cmd === FieldNames.LN || Cmd === 'LN') {
             v = bo.EditLN(cr, v);
-        else if (Cmd === FieldNames.SN || Cmd === "SN")
+        } else if (Cmd === FieldNames.SN || Cmd === 'SN') {
             v = bo.EditSN(cr, value);
-        else if (Cmd === FieldNames.NC || Cmd === "NC")
+        } else if (Cmd === FieldNames.NC || Cmd === 'NC') {
             v = bo.EditNC(cr, value);
-        else if (Cmd === FieldNames.GR || Cmd === "GR")
+        } else if (Cmd === FieldNames.GR || Cmd === 'GR') {
             v = bo.EditGR(cr, v);
-        else if (Cmd === FieldNames.PB || Cmd === "PB")
+        } else if (Cmd === FieldNames.PB || Cmd === 'PB') {
             v = bo.EditPB(cr, v);
-        else if (Cmd.startsWith("N")) {
-            v = bo.EditNameColumn(cr, v, "col_" + Cmd);
+        } else if (Cmd.startsWith('N')) {
+            v = bo.EditNameColumn(cr, v, 'col_' + Cmd);
         }
         // return v; // ###
         return true;
     }
 
     Save(): string {
-        let result = "";
+        let result = '';
         TBO.FSLBackup = new TStringList();
         try {
             this.BackupToSL(null);
             result = TBO.FSLBackup.Text;
-        }
-        finally {
+        } finally {
             TBO.FSLBackup = null;
         }
         return result;
@@ -415,12 +417,12 @@ export class TBO extends TBaseBO {
             for (let i = 0; i < m.Count; i++) {
                 const s: string = m.Items(i);
                 msg.Prot = s;
-                if (!msg.DispatchProt())
-                    console.log("MessageError: " + s);
+                if (!msg.DispatchProt()) {
+                    console.log('MessageError: ' + s);
+                }
             }
             this.InitEventNode();
-        }
-        finally {
+        } finally {
             this.FLoading = false;
         }
     }
@@ -436,24 +438,23 @@ export class TBO extends TBaseBO {
     }
 
     /**
-    implemented by calling BackupToSL() and then SaveToFile(FileName)		
-    @param aFileName file name to save to
-    */
+     * implemented by calling BackupToSL() and then SaveToFile(FileName)
+     * @param aFileName file name to save to
+     */
     Backup(aFileName: string): void {
         TBO.FSLBackup = new TStringList();
         try {
             this.BackupToSL(null);
             TBO.FSLBackup.SaveToFile(aFileName);
-        }
-        finally {
+        } finally {
             TBO.FSLBackup = null;
         }
     }
 
     /**
-     * difference to Load: no clear() and data is read from file.		
+     * difference to Load: no clear() and data is read from file.
      * @param aFileName file name for LoadFromfile
-    */
+     */
     Restore(aFileName: string): void {
         // Unterschied zu Load: 1. kein Clear(), 2. Data from File
 
@@ -468,44 +469,50 @@ export class TBO extends TBaseBO {
             for (let i = 0; i < m.Count; i++) {
                 const s: string = m.SL[i];
                 msg.Prot = s;
-                if (!msg.DispatchProt())
-                    console.log("MessageError: " + s);
+                if (!msg.DispatchProt()) {
+                    console.log('MessageError: ' + s);
+                }
             }
             this.InitEventNode();
-        }
-        finally {
+        } finally {
             this.FLoading = false;
         }
     }
 
     BackupAthletes(): void {
         const savedSchemaCode: number = FieldNames.getSchemaCode();
-        if (this.EventProps.NormalizedOutput)
+        if (this.EventProps.NormalizedOutput) {
             FieldNames.setSchemaCode(2);
+        }
         const cl: TStammdatenRowCollection = this.StammdatenNode.Collection;
         let cr: TStammdatenRowCollectionItem;
         let prop: TProp = new TProp();
 
         for (let i = 0; i < cl.Count; i++) {
             cr = cl.Items[i];
-            if (cr.FN !== "")
+            if (cr.FN !== '') {
                 this.MsgTree.Division.Athlete(cr.SNR).FN(cr.FN);
-            if (cr.LN !== "")
+            }
+            if (cr.LN !== '') {
                 this.MsgTree.Division.Athlete(cr.SNR).LN(cr.LN);
-            if (cr.SN !== "")
+            }
+            if (cr.SN !== '') {
                 this.MsgTree.Division.Athlete(cr.SNR).SN(cr.SN);
-            if (cr.NC !== "")
+            }
+            if (cr.NC !== '') {
                 this.MsgTree.Division.Athlete(cr.SNR).NC(cr.NC);
-            if (cr.GR !== "")
+            }
+            if (cr.GR !== '') {
                 this.MsgTree.Division.Athlete(cr.SNR).GR(cr.GR);
-            if (cr.PB !== "")
+            }
+            if (cr.PB !== '') {
                 this.MsgTree.Division.Athlete(cr.SNR).PB(cr.PB);
+            }
             if (cl.FieldCount > TStammdatenRowCollection.FixFieldCount) {
                 for (let j = TStammdatenRowCollection.FixFieldCount + 1; j <= cl.FieldCount; j++) {
                     this.MsgTree.Division.Athlete(cr.SNR).FieldN(j, cr.getItem(j));
                 }
-            }
-            else {
+            } else {
                 for (let p = 0; p < cr.Props.Count; p++) {
                     prop = cr.Props.GetProp(7 + p, prop);
                     this.MsgTree.Division.Athlete(cr.SNR).Prop(prop.Key, prop.Value);
@@ -513,7 +520,7 @@ export class TBO extends TBaseBO {
             }
         }
         // if (TBO.FSLBackup != null)
-        // TBO.FSLBackup.Add("");
+        // TBO.FSLBackup.Add('');
 
         FieldNames.setSchemaCode(savedSchemaCode);
     }
@@ -527,10 +534,8 @@ export class TBO extends TBaseBO {
         try {
             this.BackupToSL(SL);
             return SL.Text;
-        }
-        catch
-        {
-            return "";
+        } catch {
+            return '';
         }
     }
 
@@ -554,23 +559,24 @@ export class TBO extends TBaseBO {
         let ere: TEventRaceEntry;
         let f: number;
 
-        if (SL)
+        if (SL) {
             TBO.FSLBackup = SL;
+        }
 
         InputAction = new TInputAction();
         InputAction.OnSend = this.SaveLine;
         TInputActionManager.DynamicActionRef = InputAction;
         try {
-            TBO.FSLBackup.Add("#Params");
-            TBO.FSLBackup.Add("");
-            TBO.FSLBackup.Add("DP.StartlistCount = " + this.BOParams.StartlistCount.toString());
-            TBO.FSLBackup.Add("DP.ITCount = " + this.BOParams.ITCount.toString());
-            TBO.FSLBackup.Add("DP.RaceCount = " + this.BOParams.RaceCount.toString());
+            TBO.FSLBackup.Add('#Params');
+            TBO.FSLBackup.Add('');
+            TBO.FSLBackup.Add('DP.StartlistCount = ' + this.BOParams.StartlistCount.toString());
+            TBO.FSLBackup.Add('DP.ITCount = ' + this.BOParams.ITCount.toString());
+            TBO.FSLBackup.Add('DP.RaceCount = ' + this.BOParams.RaceCount.toString());
 
             // EventProps
-            TBO.FSLBackup.Add("");
-            TBO.FSLBackup.Add("#Event Properties");
-            TBO.FSLBackup.Add("");
+            TBO.FSLBackup.Add('');
+            TBO.FSLBackup.Add('#Event Properties');
+            TBO.FSLBackup.Add('');
 
             this.EventProps.SaveProps(TBO.FSLBackup);
 
@@ -579,143 +585,150 @@ export class TBO extends TBaseBO {
 
             // CaptionList
             if (TColCaptions.ColCaptionBag.IsPersistent && TColCaptions.ColCaptionBag.Count > 0) {
-                TBO.FSLBackup.Add("");
+                TBO.FSLBackup.Add('');
                 o.AddSection(TableID.CaptionList, this, TBO.FSLBackup);
             }
 
             if (CompactFormat) {
                 try {
                     // NameList
-                    TBO.FSLBackup.Add("");
+                    TBO.FSLBackup.Add('');
                     o.AddSection(TableID.NameList, this, TBO.FSLBackup);
 
                     // StartList
-                    TBO.FSLBackup.Add("");
+                    TBO.FSLBackup.Add('');
                     o.AddSection(TableID.StartList, this, TBO.FSLBackup);
 
                     // FleetList
                     if (this.EventNode.UseFleets) {
-                        TBO.FSLBackup.Add("");
+                        TBO.FSLBackup.Add('');
                         o.AddSection(TableID.FleetList, this, TBO.FSLBackup);
                     }
 
                     // FinishList
-                    TBO.FSLBackup.Add("");
+                    TBO.FSLBackup.Add('');
                     o.AddSection(TableID.FinishList, this, TBO.FSLBackup);
 
                     // TimeList(s)
                     if (this.BOParams.ITCount > 0 || this.EventProps.IsTimed) {
-                        TBO.FSLBackup.Add("");
+                        TBO.FSLBackup.Add('');
                         o.AddSection(TableID.TimeList, this, TBO.FSLBackup);
                     }
+                } catch {
                 }
-                catch
-                {
-                }
-            }
-            else {
+            } else {
                 // Athletes
-                TBO.FSLBackup.Add("");
-                TBO.FSLBackup.Add("#Athletes");
-                TBO.FSLBackup.Add("");
+                TBO.FSLBackup.Add('');
+                TBO.FSLBackup.Add('#Athletes');
+                TBO.FSLBackup.Add('');
 
                 this.BackupAthletes();
 
                 // Startlist
-                TBO.FSLBackup.Add("");
-                TBO.FSLBackup.Add("#Startlist");
-                TBO.FSLBackup.Add("");
+                TBO.FSLBackup.Add('');
+                TBO.FSLBackup.Add('#Startlist');
+                TBO.FSLBackup.Add('');
 
                 qn = this.EventNode;
                 g = this.MsgTree.Division;
                 qc = qn.Collection;
                 for (let i1 = 0; i1 < qc.Count; i1++) {
                     qr = qc.Items[i1];
-                    if ((qr.Bib > 0) && (qr.Bib !== qr.BaseID))
+                    if ((qr.Bib > 0) && (qr.Bib !== qr.BaseID)) {
                         g.Race1.Startlist.Pos(qr.BaseID).Bib(qr.Bib.toString());
-                    if (qr.SNR > 0)
+                    }
+                    if (qr.SNR > 0) {
                         g.Race1.Startlist.Pos(qr.BaseID).SNR(qr.SNR.toString());
+                    }
                 }
             }
 
             // Results
             for (let n = 1; n <= this.BOParams.RaceCount; n++) {
-                TBO.FSLBackup.Add("");
-                TBO.FSLBackup.Add("#" + this.MsgToken.cTokenRace + n.toString());
-                TBO.FSLBackup.Add("");
+                TBO.FSLBackup.Add('');
+                TBO.FSLBackup.Add('#' + this.MsgToken.cTokenRace + n.toString());
+                TBO.FSLBackup.Add('');
 
                 qn = this.EventNode;
                 g = this.MsgTree.Division;
                 qc = qn.Collection;
-                if (n === 1)
+                if (n === 1) {
                     r = g.Race1;
-                else if ((n > 1) && (n <= this.BOParams.RaceCount))
+                } else if ((n > 1) && (n <= this.BOParams.RaceCount)) {
                     r = g.Race(n);
-                else
+                } else {
                     r = null;
-                if (r == null)
+                }
+                if (r == null) {
                     continue;
-                if (!this.GetIsRacing(n))
+                }
+                if (!this.GetIsRacing(n)) {
                     r.IsRacing(TUtils.BoolStr(false));
+                }
                 for (let i = 0; i < qc.Count; i++) {
                     qr = qc.Items[i];
                     ere = qr.Race[n];
 
                     if (!CompactFormat) {
-                        if (ere.OTime > 0)
+                        if (ere.OTime > 0) {
                             r.Bib(qr.Bib).Rank(TUtils.IntToStr(ere.OTime));
+                        }
 
                         if (this.EventNode.UseFleets) {
                             f = ere.Fleet;
-                            if (f > 0)
+                            if (f > 0) {
                                 r.Bib(qr.Bib).FM(f.toString());
+                            }
                         }
                     }
 
                     if (this.EventNode.UseFleets) {
-                        if (!ere.IsRacing)
-                            r.Bib(qr.Bib).RV("x");
+                        if (!ere.IsRacing) {
+                            r.Bib(qr.Bib).RV('x');
+                        }
                     }
 
-                    if (ere.QU !== 0)
+                    if (ere.QU !== 0) {
                         r.Bib(qr.Bib).QU(ere.Penalty.toString());
-                    if (ere.DG > 0)
+                    }
+                    if (ere.DG > 0) {
                         r.Bib(qr.Bib).DG(ere.DG.toString());
+                    }
                 }
             }
 
-            TBO.FSLBackup.Add("");
-            TBO.FSLBackup.Add("EP.IM = " + TInputModeStrings.getName(this.EventProps.InputMode));
+            TBO.FSLBackup.Add('');
+            TBO.FSLBackup.Add('EP.IM = ' + TInputModeStrings.getName(this.EventProps.InputMode));
 
             // Errors
             this.EventNode.ErrorList.CheckAll(this.EventNode);
             if (this.EventNode.ErrorList.HasErrors()) {
-                TBO.FSLBackup.Add("");
-                TBO.FSLBackup.Add("#Errors");
-                TBO.FSLBackup.Add("");
+                TBO.FSLBackup.Add('');
+                TBO.FSLBackup.Add('#Errors');
+                TBO.FSLBackup.Add('');
                 this.EventNode.ErrorList.GetMsg(TBO.FSLBackup);
             }
-        }
-        finally {
-            if (SL)
+        } finally {
+            if (SL) {
                 TBO.FSLBackup = null;
+            }
             TInputActionManager.DynamicActionRef = null;
         }
     }
 
     BackupBtnClick(): void {
-        const fn: string = this.BackupDir + "_Backup.txt";
+        const fn: string = this.BackupDir + '_Backup.txt';
         this.Backup(fn);
     }
     RestoreBtnClick(): void {
         this.Clear();
-        const fn: string = this.BackupDir + "_Backup.txt";
+        const fn: string = this.BackupDir + '_Backup.txt';
         this.Restore(fn);
     }
 
     ClearBtnClick(): void {
-        this.ClearResult("");
-        this.ClearList("");
+        this.ClearResult('');
+        this.ClearList('');
         this.UpdateEventNode();
     }
 
@@ -734,65 +747,64 @@ export class TBO extends TBaseBO {
     }
 
     GetIsRacing(i: number): boolean {
-        if (i < 1 || i > this.RaceData.length)
+        if (i < 1 || i > this.RaceData.length) {
             return false;
+        }
         return this.RaceData[i];
     }
 
     SetIsRacing(i: number, value: boolean): void {
-        if (i >= 1 && i <= this.RaceData.length)
+        if (i >= 1 && i <= this.RaceData.length) {
             this.RaceData[i] = value;
+        }
     }
 
     FindRaceIndex(roName: string): number {
-        if (roName.startsWith('W'))
+        if (roName.startsWith('W')) {
             return -1;
+        }
         const s = roName.substring(1);
         const i = TUtils.StrToIntDef(s, -1);
-        if (i < 1 || i > this.BOParams.RaceCount)
+        if (i < 1 || i > this.BOParams.RaceCount) {
             return -1;
+        }
         return i;
     }
 
     GetRunIsRacing(RunID: string): boolean {
         const i = this.FindRaceIndex(RunID);
-        if (i > -1)
+        if (i > -1) {
             return this.GetIsRacing(i);
-        else
-            return false;
+        }
+        return false;
     }
 
     SetRunIsRacing(RunID: string, value: boolean) {
         const i = this.FindRaceIndex(RunID);
-        if (i > -1)
+        if (i > -1) {
             this.SetIsRacing(i, value);
+        }
     }
 
     EditQU(raceIndex: number, crIndex: number, value: string) {
         this.PenaltyService.Clear();
-        // if (value.indexOf(',') > -1)
-        // 	this.PenaltyService.FromString(value);
-        // else
-            this.PenaltyService.Parse(value);
-
+        this.PenaltyService.Parse(value);
         this.SetPenalty(raceIndex, crIndex, this.PenaltyService);
-
-        // or this
-        // this.SetQU(raceIndex, crIndex, this.PenaltyService.AsInteger)
     }
 
     EditDG(raceIndex: number, crIndex: number, value: string) {
         const t = TUtils.StrToIntDef(value, -1);
-        if (t > -1)
+        if (t > -1) {
             this.SetDG(raceIndex, crIndex, t);
+        }
     }
 
     EditOTime(raceIndex: number, crIndex: number, value: string) {
         const t = TUtils.StrToIntDef(value, -1);
-        if (t > -1)
+        if (t > -1) {
             this.SetOT(raceIndex, crIndex, t);
+        }
     }
-
 
     BackupPenalties(SL: TStringList, n: number): void {
         let InputAction: TInputAction;
@@ -804,8 +816,9 @@ export class TBO extends TBaseBO {
         let qr: TEventRowCollectionItem;
         let ere: TEventRaceEntry;
 
-        if (SL)
+        if (SL) {
             TBO.FSLBackup = SL;
+        }
 
         InputAction = new TInputAction();
         InputAction.OnSend = this.SaveLine;
@@ -814,34 +827,39 @@ export class TBO extends TBaseBO {
             qn = this.EventNode;
             g = this.MsgTree.Division;
             qc = qn.Collection;
-            if (n === 1)
+            if (n === 1) {
                 r = g.Race1;
-            else if ((n > 1) && (n <= this.BOParams.RaceCount))
+            } else if ((n > 1) && (n <= this.BOParams.RaceCount)) {
                 r = g.Race(n);
-            else
+            } else {
                 r = null;
+            }
             if (r) {
-                if (!this.GetIsRacing(n))
+                if (!this.GetIsRacing(n)) {
                     r.IsRacing(TUtils.BoolStr(false));
+                }
                 for (let i = 0; i < qc.Count; i++) {
                     qr = qc.Items[i];
                     ere = qr.Race[n];
 
                     if (this.EventNode.UseFleets) {
-                        if (!ere.IsRacing)
-                            r.Bib(qr.Bib).RV("x");
+                        if (!ere.IsRacing) {
+                            r.Bib(qr.Bib).RV('x');
+                        }
                     }
 
-                    if (ere.QU !== 0)
+                    if (ere.QU !== 0) {
                         r.Bib(qr.Bib).QU(ere.Penalty.toString());
-                    if (ere.DG > 0)
+                    }
+                    if (ere.DG > 0) {
                         r.Bib(qr.Bib).DG(ere.DG.toString());
+                    }
                 }
             }
-        }
-        finally {
-            if (SL)
+        } finally {
+            if (SL) {
                 TBO.FSLBackup = null;
+            }
             TInputActionManager.DynamicActionRef = null;
         }
     }
@@ -858,23 +876,24 @@ export class TBO extends TBaseBO {
             for (let t = tc; t >= 0; t--) {
                 cl = en.Collection.Items;
                 result.clear();
-                for (let i = 0; i < cl.length; i++) {
-                    cr = cl[i];
+                for (cr of cl) {
                     tp = cr.Race[r];
                     if (tp.IsRacing) {
                         if (tp.OTime > 0 || tp.Penalty.IsOut) {
                             result.race = r;
                             result.bib = cr.Bib;
-                            if (tp.OTime > 0)
+                            if (tp.OTime > 0) {
                                 result.withTime++;
-                            if (tp.Penalty.IsOut)
+                            }
+                            if (tp.Penalty.IsOut) {
                                 result.withPenalty++;
+                            }
                             result.withTimeOrPenalty++;
                         }
                     }
                 }
                 if (result.withTimeOrPenalty) {
-              if (result.withTimeOrPenalty === cl.length) {
+                    if (result.withTimeOrPenalty === cl.length) {
                         if (r < rc) {
                             result.race++;
                         }
@@ -888,11 +907,11 @@ export class TBO extends TBaseBO {
     }
 
     tryToggleStrict() {
-        if (this.StrictInputMode)
+        if (this.StrictInputMode) {
             this.EventProps.InputMode = TInputMode.Relaxed;
-        else
+        } else {
             this.EventProps.InputMode = TInputMode.Strict;
-    
+        }
         this.BOManager.BO.updateStrictInputMode();
       }
 
@@ -908,8 +927,9 @@ export class TBO extends TBaseBO {
         const bo = this.BOManager.BO;
         bo.EventBO.CurrentRow = bo.EventNode.FindBib(this.CurrentBib);
         const ru = bo.EventNode;
-        if (ru)
+        if (ru) {
           ru.ColBO.CurrentRow = ru.FindBib(this.CurrentBib);
+        }
       }
-    
+
 }

@@ -1,5 +1,5 @@
-﻿import { IconNames } from "./icon-names";
-import { IconEnum } from "./icon-enum";
+﻿import { IconNames } from './icon-names';
+import { IconEnum } from './icon-enum';
 
 export enum IconAction {
     Execute,
@@ -34,34 +34,33 @@ export class IconData {
 
     get IconColorString(): string {
         switch (this.Color) {
-            case IconColor.Normal: return "";
-            case IconColor.Primary: return "primary";
-            case IconColor.Accent: return "accent";
-            case IconColor.Warn: return "warn";
-            default: return "primary";
+            case IconColor.Normal: return '';
+            case IconColor.Primary: return 'primary';
+            case IconColor.Accent: return 'accent';
+            case IconColor.Warn: return 'warn';
+            default: return 'primary';
         }
     }
 
     get IconActionString(): string {
         switch (this.Action) {
-            case IconAction.Execute: return "Execute";
-            case IconAction.ReduceTo: return "Reduce To";
-            case IconAction.Show: return "Show";
-            case IconAction.Hide: return "Hide";
-            case IconAction.Toggle: return "Toggle";
-            case IconAction.Increment: return "Increment";
-            case IconAction.Decrement: return "Decrement";
-            case IconAction.Find: return "Find";
-            case IconAction.Display: return "Display";
-            case IconAction.DisplayAndFind: return "Display and Find";
-            default: return "";
+            case IconAction.Execute: return 'Execute';
+            case IconAction.ReduceTo: return 'Reduce To';
+            case IconAction.Show: return 'Show';
+            case IconAction.Hide: return 'Hide';
+            case IconAction.Toggle: return 'Toggle';
+            case IconAction.Increment: return 'Increment';
+            case IconAction.Decrement: return 'Decrement';
+            case IconAction.Find: return 'Find';
+            case IconAction.Display: return 'Display';
+            case IconAction.DisplayAndFind: return 'Display and Find';
+            default: return '';
         }
     }
 
     static readIconData(source: (string | IconEnum | IconColor | IconAction)[][]) {
         const a: IconData[] = [];
-        for (let i = 0; i < source.length; i++) {
-            const cr = source[i];
+        for (const cr of source) {
             const id: IconData = new IconData();
             id.EnumValue = cr[0] as IconEnum;
             id.Meaning = cr[1] as string;

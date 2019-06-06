@@ -20,19 +20,19 @@ export class JsonInfo {
 
   private updatePropJson(o: EventPropJson): void {
     o.Name = this.BOManager.BO.EventProps.EventName;
-    //o.ScoringSystem = this.BOManager.BO.EventProps.ScoringSystem;
+    // o.ScoringSystem = this.BOManager.BO.EventProps.ScoringSystem;
     o.Throwouts = this.BOManager.BO.EventProps.Throwouts;
     o.DivisionName = this.BOManager.BO.EventProps.DivisionName;
-    //o.InputMode = this.BOManager.BO.EventProps.InputMode;
+    // o.InputMode = this.BOManager.BO.EventProps.InputMode;
     o.RaceLayout = this.BOManager.BO.EventProps.RaceLayout;
     o.NameSchema = this.BOManager.BO.EventProps.NameSchema;
     o.FieldMap = this.BOManager.BO.EventProps.FieldMap;
     o.FieldCaptions = this.BOManager.BO.EventProps.FieldCaptions;
 
-    //o.FieldCount = this.BOManager.BO.EventProps.FieldCount;
+    // o.FieldCount = this.BOManager.BO.EventProps.FieldCount;
     o.FieldCount = this.BOManager.BO.StammdatenNode.Collection.FieldCount;
 
-    //o.NameFieldCount = this.BOManager.BO.EventProps.NameFieldCount;
+    // o.NameFieldCount = this.BOManager.BO.EventProps.NameFieldCount;
 
     o.NameFieldOrder = this.BOManager.BO.EventProps.NameFieldOrder;
     o.UseFleets = this.BOManager.BO.EventProps.UseFleets;
@@ -59,8 +59,9 @@ export class JsonInfo {
     this.ee.AddSection(TableID.NameList, this.BOManager.BO, Memo);
     const SL: string[] = [];
     for (let i = 0; i < Memo.Count; i++) {
-      if (Memo.SL[i])
+      if (Memo.SL[i]) {
         SL.push(Memo.SL[i]);
+      }
     }
     return Memo.SL;
   }
@@ -70,26 +71,27 @@ export class JsonInfo {
     this.ee.AddSection(TableID.StartList, this.BOManager.BO, Memo);
     const SL: string[] = [];
     for (let i = 0; i < Memo.Count; i++) {
-      if (Memo.SL[i])
+      if (Memo.SL[i]) {
         SL.push(Memo.SL[i]);
+      }
     }
     return Memo.SL;
   }
 
   getFleetList(): string[] {
     const bo = this.BOManager.BO;
-    //if (bo.EventProps.UseFleets) {
+    // if (bo.EventProps.UseFleets) {
     if (bo.EventNode.UseFleets) {
       const Memo = new TStringList();
       this.ee.AddSection(TableID.FleetList, bo, Memo);
       const SL: string[] = [];
       for (let i = 0; i < Memo.Count; i++) {
-        if (Memo.SL[i])
+        if (Memo.SL[i]) {
           SL.push(Memo.SL[i]);
+        }
       }
       return Memo.SL;
-    }
-    else {
+    } else {
       return [];
     }
   }
@@ -99,8 +101,9 @@ export class JsonInfo {
     this.ee.AddRaceFinishSection(this.BOManager.BO, Memo, r);
     const SL: string[] = [];
     for (let i = 0; i < Memo.Count; i++) {
-      if (Memo.SL[i])
+      if (Memo.SL[i]) {
         SL.push(Memo.SL[i]);
+      }
     }
     return Memo.SL;
   }
@@ -110,8 +113,9 @@ export class JsonInfo {
     this.ee.AddSection(TableID.FinishList, this.BOManager.BO, Memo);
     const SL: string[] = [];
     for (let i = 0; i < Memo.Count; i++) {
-      if (Memo.SL[i])
+      if (Memo.SL[i]) {
         SL.push(Memo.SL[i]);
+      }
     }
     return Memo.SL;
   }
@@ -120,12 +124,11 @@ export class JsonInfo {
     const bo = this.BOManager.BO;
     if (r > 0 && r <= bo.BOParams.RaceCount) {
       const Memo = new TStringList();
-      //Memo.Add(`PenaltyList.Begin.R${r}`);
+      // Memo.Add(`PenaltyList.Begin.R${r}`);
       bo.BackupPenalties(Memo, r);
-      //Memo.Add(`PenaltyList.End.R${r}`);
+      // Memo.Add(`PenaltyList.End.R${r}`);
       return Memo.SL;
-    }
-    else {
+    } else {
       return [];
     }
   }
@@ -135,7 +138,7 @@ export class JsonInfo {
     const a = [];
     for (let r = 1; r <= bo.BOParams.RaceCount; r++) {
       a.push(this.getPL(r));
-    }                           
+    }
     return a;
   }
 
@@ -143,13 +146,13 @@ export class JsonInfo {
     const bo = this.BOManager.BO;
     const a: { [index: string]: string[] } = {};
     for (let r = 1; r <= bo.BOParams.RaceCount; r++) {
-      a["R" + r] = this.getPL(r);
+      a['R' + r] = this.getPL(r);
     }
     return a;
   }
 
   getEventDataJson(): EventDataJson {
-    const o: EventDataJson = new EventDataJson;
+    const o: EventDataJson = new EventDataJson();
     o.EventParams = this.getEventParams();
     o.EventProps = this.getEventProps();
     o.NameTable = this.getNames();
@@ -161,9 +164,9 @@ export class JsonInfo {
   }
 
   getRaceDataJson(r: number): RaceDataJson {
-    const o: RaceDataJson = new RaceDataJson;
+    const o: RaceDataJson = new RaceDataJson();
     o.FinishInfo = this.getRaceFinishList(r);
-    o.TimingInfo = []; //this.getTL(r);
+    o.TimingInfo = []; // this.getTL(r);
     o.PenaltyInfo = this.getPL(r);
     return o;
   }
@@ -174,40 +177,54 @@ export class JsonInfo {
   }
 
   convertEventDataJson(o: EventDataJson): string[] {
-  
+
     const a: string[] = [];
 
-    for (const s1 of o.EventParams)
+    for (const s1 of o.EventParams) {
       a.push(s1);
+    }
 
-    for (const s2 of o.EventProps)
+    for (const s2 of o.EventProps) {
       a.push(s2);
+    }
 
-    if (o.NameTable.length > 2)
-      for (const s3 of o.NameTable)
+    if (o.NameTable.length > 2) {
+      for (const s3 of o.NameTable) {
         a.push(s3);
-
-    for (const s4 of o.StartList)
-      a.push(s4);
-
-    if (o.FleetList.length > 2)
-      for (const s5 of o.FleetList)
-        a.push(s5);
-
-    for (const s6 of o.FinishInfo)
-      a.push(s6);
-
-    if (o.TimingInfo.length > 0)
-      for (const ti of o.TimingInfo)
-        for (const s7 of ti)
-          a.push(s7);
-
-    if (o.PenaltyInfo.length > 0)
-      for (const pi of o.PenaltyInfo) {
-        if (pi.length > 0)
-          for (const s8 of pi)
-            a.push(s8);
       }
+    }
+
+    for (const s4 of o.StartList) {
+      a.push(s4);
+    }
+
+    if (o.FleetList.length > 2) {
+      for (const s5 of o.FleetList) {
+        a.push(s5);
+      }
+    }
+
+    for (const s6 of o.FinishInfo) {
+      a.push(s6);
+    }
+
+    if (o.TimingInfo.length > 0) {
+      for (const ti of o.TimingInfo) {
+        for (const s7 of ti) {
+          a.push(s7);
+        }
+      }
+    }
+
+    if (o.PenaltyInfo.length > 0) {
+      for (const pi of o.PenaltyInfo) {
+        if (pi.length > 0) {
+          for (const s8 of pi) {
+            a.push(s8);
+          }
+        }
+      }
+    }
 
     return a;
   }

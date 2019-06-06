@@ -43,7 +43,7 @@ EP.UseFleets = False
 EP.TargetFleetSize = 8
 EP.FirstFinalRace = 20
 EP.IsTimed = False
-EP.UseCompactFormat = True  
+EP.UseCompactFormat = True
 `;
 
   static readonly DefaultExample = `#Params
@@ -197,9 +197,9 @@ EP.Throwouts = 0
 EP.DivisionName = 420
 EP.InputMode = Strict
 EP.RaceLayout = Finish
-EP.NameSchema = 
+EP.NameSchema =
 EP.FieldMap = SN
-EP.FieldCaptions = 
+EP.FieldCaptions =
 EP.FieldCount = 6
 EP.NameFieldCount = 2
 EP.NameFieldOrder = 041256
@@ -255,7 +255,7 @@ FinishList.End
 #W2
 
 
-EP.IM = Strict        
+EP.IM = Strict
 `;
 
   static readonly IDM_1991 = `#Params
@@ -274,10 +274,10 @@ EP.InputMode = Strict
 EP.RaceLayout = Finish
 EP.NameSchema = NX
 EP.FieldMap = SN
-EP.FieldCaptions = 
+EP.FieldCaptions =
 EP.FieldCount = 6
 EP.NameFieldCount = 0
-EP.NameFieldOrder = 
+EP.NameFieldOrder =
 EP.ShowCupColumn = True
 EP.UseFleets = False
 EP.TargetFleetSize = 8
@@ -597,7 +597,7 @@ FR.*.W6.Bib78.QU=DNS
 FR.*.W6.Bib79.QU=DNS
 FR.*.W6.Bib80.QU=DNS
 
-EP.IM = Strict    
+EP.IM = Strict
 `;
 
   static readonly IDM_1997 = `#Params
@@ -616,10 +616,10 @@ EP.InputMode = Strict
 EP.RaceLayout = Finish
 EP.NameSchema = NX
 EP.FieldMap = SN
-EP.FieldCaptions = 
+EP.FieldCaptions =
 EP.FieldCount = 6
 EP.NameFieldCount = 0
-EP.NameFieldOrder = 
+EP.NameFieldOrder =
 EP.ShowCupColumn = True
 EP.UseFleets = False
 EP.TargetFleetSize = 8
@@ -889,37 +889,37 @@ export class TEventDataAsset implements IEventDataItem {
   EventData: string;
 
   constructor() {
-    this.EventName = "empty";
-    this.EventData = "";
+    this.EventName = 'empty';
+    this.EventData = '';
   }
 
   init_DefaultEmpty() {
-    this.EventName = "Empty Event";
+    this.EventName = 'Empty Event';
     this.EventData = TTestData.DefaultEmptyEvent;
   }
 
   init_DefaultExample() {
-    this.EventName = "Example Event";
+    this.EventName = 'Example Event';
     this.EventData = TTestData.DefaultExample;
   }
 
   init_NameTest() {
-    this.EventName = "Name Test";
+    this.EventName = 'Name Test';
     this.EventData = TTestData.NameTest;
   }
 
   init_FleetTest() {
-    this.EventName = "Fleet Test";
+    this.EventName = 'Fleet Test';
     this.EventData = TTestData.FleetTest;
   }
 
   init_1991() {
-    this.EventName = "Test Data IDM 1991";
+    this.EventName = 'Test Data IDM 1991';
     this.EventData = TTestData.IDM_1991;
   }
 
   init_1997() {
-    this.EventName = "Test Data IDM 1997";
+    this.EventName = 'Test Data IDM 1997';
     this.EventData = TTestData.IDM_1997;
   }
 
