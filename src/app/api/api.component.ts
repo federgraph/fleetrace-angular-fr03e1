@@ -18,8 +18,8 @@ cls = clear TestOutput variable
 
 const postButtonRowLegend = `
 --- post-button-row ---
-EJ = posting EventDataJSON to /api/event-data-json
-RJ = posting RaceDataJSON to /api/race-data-json
+Push EJ = posting EventDataJSON to /api/event-data-json
+Push RJ = posting RaceDataJSON to /api/race-data-json
 
 ED = posting EventDataJSON to /api/ed.json
 RD = posting RaceDataJSON to a/pi/rd.json

@@ -81,7 +81,7 @@ import { ConnectionControlComponent } from './connection-control/connection-cont
     TBOParams,
     TMsgToken,
     TBOManager,
-    ...ONLINE_SERVICES
+    ONLINE_SERVICES
   ],
   bootstrap: [AppComponent]
 })

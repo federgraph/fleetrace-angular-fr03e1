@@ -115,8 +115,11 @@ export class AppComponent {
     const t = localStorage.getItem(this.autoSaveDataKey);
 
     if (t === undefined) {
+      // do nothing
     } else if (t === null) {
+      // do nothing
     } else if (t === '') {
+      // do nothing
     } else {
       const edi = new IEventDataItem();
       edi.EventData = t;
@@ -757,8 +760,10 @@ export class AppComponent {
   initCurrent() {
     this.processQueue();
 
+    const bo = this.BOManager.BO;
+
     let re = new CurrentNumbers();
-    re = this.BOManager.BO.findCurrentInEvent(re);
+    re = bo.findCurrentInEvent(re);
     this.assignCurrent(re);
   }
 
@@ -827,7 +832,6 @@ export class AppComponent {
       for (const s of l) {
         SL.Add(s);
       }
-
       this.TestOutput = SL.Text;
     }
   }
