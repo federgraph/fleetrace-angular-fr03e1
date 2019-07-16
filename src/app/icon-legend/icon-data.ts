@@ -84,12 +84,13 @@ export const ToolbarIcons = [
 ];
 
 export const IconbarIcons = [
-    [IconEnum.camera, 'Icon Legend', IconAction.Toggle, IconColor.Primary, ''],
+    // [IconEnum.camera, 'Icon Legend', IconAction.Toggle, IconColor.Primary, ''],
     [IconEnum.ac_unit, 'Event Params form', IconAction.ReduceTo, IconColor.Primary, ''],
     [IconEnum.settings, 'Event Properties form', IconAction.ReduceTo, IconColor.Primary, ''],
-    [IconEnum.format_align_justify, 'Pre Text', IconAction.ReduceTo, IconColor.Primary, ''],
-    [IconEnum.edit, 'Text Area', IconAction.ReduceTo, IconColor.Primary, ''],
-    [IconEnum.gesture, 'Json Info', IconAction.ReduceTo, IconColor.Primary, ''],
+    [IconEnum.event, 'Event', IconAction.ReduceTo, IconColor.Normal, ''],
+    // [IconEnum.format_align_justify, 'Pre Text', IconAction.ReduceTo, IconColor.Primary, ''],
+    // [IconEnum.edit, 'Text Area', IconAction.ReduceTo, IconColor.Primary, ''],
+    // [IconEnum.gesture, 'Json Info', IconAction.ReduceTo, IconColor.Primary, ''],
 ];
 
 export const EditbarIcons = [

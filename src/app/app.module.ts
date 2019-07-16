@@ -14,6 +14,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule  } from '@angular/material/toolbar';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatCardModule} from '@angular/material/card';
 
 import { AppComponent } from './app.component';
 import { EventComponent } from './event/event.component';
@@ -74,6 +76,8 @@ import { ConnectionControlComponent } from './connection-control/connection-cont
     MatListModule,
     MatSnackBarModule,
     MatBadgeModule,
+    MatTabsModule,
+    MatCardModule,
   ],
   providers: [
     TIniImage,

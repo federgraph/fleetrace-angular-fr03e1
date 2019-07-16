@@ -34,7 +34,7 @@ enum Page {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'FREO';
 
   more = false;
@@ -65,24 +65,26 @@ export class AppComponent {
   ApiVisible = false;
   ConnVisible = false;
 
-  IconBarVisible = false;
+  IconBarVisible = true;
 
   InputVisible = true;
   BibVisible = false;
   RaceVisible = false;
   EventVisible = true;
 
-  TextAreaVisible = false;
-  PreTextVisible = false;
+  TextAreaVisible = true;
+  PreTextVisible = true;
 
-  HelpTextVisible = false;
-  JsonInfoVisible = false;
-  LegendVisible = false;
-  TextAreaLegendVisible = false;
-  PreTextLegendVisible = false;
+  HelpTextVisible = true;
+  JsonInfoVisible = true;
+  LegendVisible = true;
+  TextAreaLegendVisible = true;
+  PreTextLegendVisible = true;
 
   ParamsVisible = false;
   PropsVisible = false;
+
+  TabsVisible = false;
 
   @ViewChild('eventTab', { static: false }) eventTab: EventComponent;
 
@@ -109,6 +111,10 @@ export class AppComponent {
     this.initCurrent();
     this.textAreaIcons = IconData.readIconData(TextAreaIcons);
     this.preTextIcons = IconData.readIconData(PreTextIcons);
+  }
+
+  ngOnInit() {
+    this.initParams();
   }
 
   autoLoad() {
@@ -249,6 +255,10 @@ export class AppComponent {
     this.InputVisible = !this.InputVisible;
   }
 
+  toggleTabsVisible() {
+    this.TabsVisible = !this.TabsVisible;
+  }
+
   reduceTo(p: Page = Page.Event) {
     this.CurrentPage = p;
 
@@ -257,12 +267,13 @@ export class AppComponent {
     this.EventVisible = false;
     this.ParamsVisible = false;
     this.PropsVisible = false;
-    this.TextAreaVisible = false;
-    this.PreTextVisible = false;
-    this.JsonInfoVisible = false;
-    this.LegendVisible = false;
-    this.TextAreaLegendVisible = false;
-    this.PreTextLegendVisible = false;
+
+    // this.TextAreaVisible = false;
+    // this.PreTextVisible = false;
+    // this.JsonInfoVisible = false;
+    // this.LegendVisible = false;
+    // this.TextAreaLegendVisible = false;
+    // this.PreTextLegendVisible = false;
 
 
     switch (p) {

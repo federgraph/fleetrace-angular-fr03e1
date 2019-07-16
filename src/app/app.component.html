@@ -15,41 +15,18 @@
         <button mat-icon-button (click)="reduceToNone()">
             <mat-icon>texture</mat-icon>
         </button>
-        <button mat-icon-button (click)="toggleHelpText()">
+        <button mat-icon-button (click)="toggleTabsVisible()">
             <mat-icon>help</mat-icon>
         </button>
 
         <span class="fill-remaining-space"></span>
     </mat-toolbar>
 
-    <div class="real-content">
-
-        <ng-container id="icon-bar" *ngIf="IconBarVisible">
-            <button mat-icon-button (click)="toggleLegend()">
-                <mat-icon color="primary">camera</mat-icon>
-            </button>
-            <button mat-icon-button (click)="reduceToParams()">
-                <mat-icon color="primary">ac_unit</mat-icon>
-            </button>
-            <button mat-icon-button (click)="reduceToProps()">
-                <mat-icon color="primary">settings</mat-icon>
-            </button>
-            <button mat-icon-button (click)="reduceToPreText()">
-                <mat-icon color="primary">format_align_justify</mat-icon>
-            </button>
-            <button mat-icon-button (click)="reduceToTextArea()">
-                <mat-icon color="primary">edit</mat-icon>
-            </button>
-            <button mat-icon-button (click)="reduceToJsonInfo()">
-                <mat-icon color="primary">gesture</mat-icon>
-            </button>
-        </ng-container>
+    <mat-card class="main-card">
 
         <ng-container>
-            <h2>Panel</h2>
-
             <div class="button-line">
-                <button mat-stroked-button color="primary" (click)="toggleIconBar()">Icons</button>
+                <button mat-stroked-button color="primary" (click)="noop()">Blank</button>
                 <button mat-stroked-button color="primary" (click)="toggleRows()">Rows</button>
                 <button mat-stroked-button color="primary" (click)="initCurrent()">Next</button>
             </div>
@@ -93,108 +70,156 @@
             (calc)="handleCalc($event)">
         </app-timing-buttons>
 
-                <ng-container *ngIf=TextAreaVisible>
-                    <h2>Text Area</h2>
-
-                    <ng-container *ngIf="!BOManager.BigButtonRow">
-                        <button mat-icon-button (click)="memoClear()">
-                            <mat-icon>clear</mat-icon>
-                        </button>
-                        <button mat-icon-button (click)="memoAsset()">
-                            <mat-icon>input</mat-icon>
-                        </button>
-                        <button mat-icon-button (click)="memoConvertedData()">
-                            <mat-icon color="primary">input</mat-icon>
-                        </button>
-                        <button mat-icon-button (click)="memoText(false)">
-                            <mat-icon>save</mat-icon>
-                        </button>
-                        <button mat-icon-button (click)="memoText(true)">
-                            <mat-icon color="primary">save</mat-icon>
-                        </button>
-                        <button mat-icon-button (click)="memoRead()">
-                            <mat-icon color="accent">send</mat-icon>
-                        </button>
-                        <button mat-icon-button (click)="memoCopy(memo)">
-                            <mat-icon color="copy">share</mat-icon>
-                        </button>
-                        <button mat-icon-button (click)="toggleTextAreaLegend()">
-                            <mat-icon>camera</mat-icon>
-                        </button>
-                    </ng-container>
-
-                    <div class="memo-form">
-                        <mat-form-field class="memo">
-                            <textarea #memo matInput spellcheck="false" rows="16" class="memo" [(ngModel)]="MemoText"
-                               [ngModelOptions]="{standalone: true}"></textarea>
-                        </mat-form-field>
-                    </div>
-
-                    <app-icon-bar-legend [caption]="'Text Area'" [bar]="textAreaIcons" *ngIf="TextAreaLegendVisible"></app-icon-bar-legend>
-
-                </ng-container>
-
-        <ng-container *ngIf=PreTextVisible>
-            <h2>Pre Text</h2>
-
-            <ng-container>
-                <button mat-icon-button (click)="clearTextOutput()">
-                    <mat-icon>clear</mat-icon>
-                </button>
-                <button mat-icon-button (click)="showConvertedData()">
-                    <mat-icon>input</mat-icon>
-                </button>
-                <button mat-icon-button (click)="showQueue()">
-                    <mat-icon color="accent">wb_sunny</mat-icon>
-                </button>
-                <button mat-icon-button (click)="getTxtBackup(false)">
-                    <mat-icon>save</mat-icon>
-                </button>
-                <button mat-icon-button (click)="getTxtBackup(true)">
-                    <mat-icon color="primary">save</mat-icon>
-                </button>
-                <button mat-icon-button (click)="copyCompact()">
-                    <mat-icon color="primary">share</mat-icon>
-                </button>
-                <button mat-icon-button (click)="togglePreTextLegend()">
-                    <mat-icon>camera</mat-icon>
-                </button>
-            </ng-container>
-
-            <app-icon-bar-legend [caption]="'Pre Text'" [bar]="preTextIcons" *ngIf="PreTextLegendVisible"></app-icon-bar-legend>
-
-            <pre>{{TestOutput}}</pre>
-        </ng-container>
-
         <app-bib-tab *ngIf=BibVisible #bibInfo [bib]=CurrentBib (bibChanged)="onBibChanged($event)"></app-bib-tab>
         <app-event-tab *ngIf=EventVisible #eventTab [EventName]="EventName"></app-event-tab>
+    </mat-card>
 
-        <app-json-info *ngIf="JsonInfoVisible" [race]=CurrentRace></app-json-info>
-        <app-icon-legend *ngIf=LegendVisible></app-icon-legend>
+    <mat-card class="second-card" *ngIf=TabsVisible>
+    <mat-tab-group>
 
+    <mat-tab label="Help" *ngIf="HelpTextVisible">
+        <app-help-text #helpTab></app-help-text>
+    </mat-tab>
+
+    <mat-tab label="Legend" *ngIf=LegendVisible>
+        <app-icon-legend></app-icon-legend>
+    </mat-tab>
+    
+    <mat-tab label="Json" *ngIf="JsonInfoVisible">
+        <app-json-info [race]=CurrentRace></app-json-info>
+    </mat-tab>
+
+    <mat-tab label="Text Area" *ngIf=TextAreaVisible>
+        <mat-card class="scroll-card">
+        <mat-card-title>Text Area</mat-card-title>
+        <mat-card-content>
+
+        <ng-container *ngIf="!BOManager.BigButtonRow">
+            <button mat-icon-button (click)="memoClear()">
+                <mat-icon>clear</mat-icon>
+            </button>
+            <button mat-icon-button (click)="memoAsset()">
+                <mat-icon>input</mat-icon>
+            </button>
+            <button mat-icon-button (click)="memoConvertedData()">
+                <mat-icon color="primary">input</mat-icon>
+            </button>
+            <button mat-icon-button (click)="memoText(false)">
+                <mat-icon>save</mat-icon>
+            </button>
+            <button mat-icon-button (click)="memoText(true)">
+                <mat-icon color="primary">save</mat-icon>
+            </button>
+            <button mat-icon-button (click)="memoRead()">
+                <mat-icon color="accent">send</mat-icon>
+            </button>
+            <button mat-icon-button (click)="memoCopy(memo)">
+                <mat-icon color="copy">share</mat-icon>
+            </button>
+            <button mat-icon-button (click)="toggleTextAreaLegend()">
+                <mat-icon>camera</mat-icon>
+            </button>
+        </ng-container>
+
+        <div class="memo-form">
+            <mat-form-field class="memo">
+                <textarea #memo matInput spellcheck="false" rows="16" class="memo" [(ngModel)]="MemoText"
+                    [ngModelOptions]="{standalone: true}"></textarea>
+            </mat-form-field>
+        </div>
+
+        <app-icon-bar-legend [caption]="'Text Area'" [bar]="textAreaIcons" *ngIf="TextAreaLegendVisible"></app-icon-bar-legend>
+
+        </mat-card-content>
+        </mat-card>
+    </mat-tab>
+
+    <mat-tab label="Pre Text">
+        <mat-card class="scroll-card">
+        <mat-card-title>Pre Text</mat-card-title>
+        <mat-card-content>
+
+        <ng-container>
+            <button mat-icon-button (click)="clearTextOutput()">
+                <mat-icon>clear</mat-icon>
+            </button>
+            <button mat-icon-button (click)="showConvertedData()">
+                <mat-icon>input</mat-icon>
+            </button>
+            <button mat-icon-button (click)="showQueue()">
+                <mat-icon color="accent">wb_sunny</mat-icon>
+            </button>
+            <button mat-icon-button (click)="getTxtBackup(false)">
+                <mat-icon>save</mat-icon>
+            </button>
+            <button mat-icon-button (click)="getTxtBackup(true)">
+                <mat-icon color="primary">save</mat-icon>
+            </button>
+            <button mat-icon-button (click)="copyCompact()">
+                <mat-icon color="primary">share</mat-icon>
+            </button>
+            <button mat-icon-button (click)="togglePreTextLegend()">
+                <mat-icon>camera</mat-icon>
+            </button>
+        </ng-container>
+
+        <pre>{{TestOutput}}</pre>
+
+        <app-icon-bar-legend [caption]="'Pre Text'" [bar]="preTextIcons" *ngIf="PreTextLegendVisible"></app-icon-bar-legend>
+        </mat-card-content>
+        </mat-card>
+    </mat-tab>
+
+    <mat-tab label="Config">
+        <ng-container id="icon-bar" *ngIf="IconBarVisible">
+            <!-- <button mat-icon-button (click)="toggleLegend()">
+                <mat-icon color="primary">camera</mat-icon>
+            </button> -->
+            <button mat-icon-button (click)="reduceToParams()">
+                <mat-icon color="primary">ac_unit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="reduceToProps()">
+                <mat-icon color="primary">settings</mat-icon>
+            </button>
+            <!-- <button mat-icon-button (click)="reduceToPreText()">
+                <mat-icon color="primary">format_align_justify</mat-icon>
+            </button>
+            <button mat-icon-button (click)="reduceToTextArea()">
+                <mat-icon color="primary">edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="reduceToJsonInfo()">
+                <mat-icon color="primary">gesture</mat-icon>
+            </button> -->
+            <button mat-icon-button (click)="reduceToEvent()">
+                <mat-icon>event</mat-icon>
+            </button>
+        </ng-container>
         <app-form-event-params-quick *ngIf="ParamsVisible" (paramsChanged)="onParamsChanged($event)"></app-form-event-params-quick>
         <app-form-event-props-quick *ngIf="PropsVisible" (propsChanged)="onPropsChanged($event)"></app-form-event-props-quick>
+    </mat-tab>
 
+    <mat-tab label="Sonstiges">
+        <app-featured-event (dataAvailable)="onDataAvailable($event)"></app-featured-event>
         <app-api [race]=CurrentRace (dataAvailable)="onDataAvailable($event)"></app-api>
         <app-connection-control *ngIf="ConnectionBarVisible" #connBar></app-connection-control>
 
-        <p></p>
-
-        <h2>Local Storage</h2>
-
+        <mat-card class="scroll-card">
+        <mat-card-title>Local Storage</mat-card-title>
+        <mat-card-content>
         <div class="button-row">
             <button mat-stroked-button color="primary" (click)="autoSave()">Save</button>
             <button mat-stroked-button color="primary" (click)="autoLoad()">Load</button>
             <button mat-stroked-button color="primary" (click)="resetBtnClick()">Reset</button>
         </div>
-
-        <p></p>
-
-        <app-help-text *ngIf="HelpTextVisible" #helpTab></app-help-text>
-        <app-featured-event (dataAvailable)="onDataAvailable($event)"></app-featured-event>
+        </mat-card-content>
+        </mat-card>
 
         <app-result-hash></app-result-hash>
         <app-result-upload [race]=CurrentRace></app-result-upload>
-    </div>
+
+    </mat-tab>
+
+    </mat-tab-group>
+</mat-card>
 
 </div>
