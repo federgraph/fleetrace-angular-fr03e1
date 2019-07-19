@@ -37,7 +37,6 @@ enum Page {
 export class AppComponent implements OnInit {
   title = 'FREO';
 
-  more = false;
   wantInput = false;
   wantOutput = false;
 
@@ -62,24 +61,34 @@ export class AppComponent implements OnInit {
   ThrowoutsRowVisible = false;
   ClearingRowVisible = false;
 
+  LinkButtonVisible = false;
+
   ApiVisible = false;
   ConnVisible = false;
 
-  IconBarVisible = true;
+  ComponentToggleCardVisible = false;
+  CommandBarVisible = true;
+  ExplorerBarVisible = false;
+  ExplorerLineVisible = false;
+  ButtonPanelVisible = true;
 
   InputVisible = true;
   BibVisible = false;
+  EntriesVisible = false;
   RaceVisible = false;
   EventVisible = true;
 
+  TextAreaLegendVisible = true;
+  PreTextLegendVisible = true;
+
   TextAreaVisible = true;
   PreTextVisible = true;
-
   HelpTextVisible = true;
   JsonInfoVisible = true;
   LegendVisible = true;
-  TextAreaLegendVisible = true;
-  PreTextLegendVisible = true;
+  ConfigVisible = false;
+  ComponentsVisible = false;
+  SonstigesVisible = false;
 
   ParamsVisible = false;
   PropsVisible = false;
@@ -87,11 +96,8 @@ export class AppComponent implements OnInit {
   TabsVisible = false;
 
   @ViewChild('eventTab', { static: false }) eventTab: EventComponent;
-
   @ViewChild('timingTab', { static: false }) timingTab: TimingButtonsComponent;
-
   @ViewChild('bibInfo', { static: false }) bibTab: BibComponent;
-
   @ViewChild('connBar', { static: false }) connBar: ConnectionControlComponent;
 
   private SL: TStringList;
@@ -100,7 +106,10 @@ export class AppComponent implements OnInit {
   textAreaIcons: IconData[];
   preTextIcons: IconData[];
 
-  constructor(private cdref: ChangeDetectorRef, public BOManager: TBOManager, public snackBar: MatSnackBar) {
+  constructor(
+        private cdref: ChangeDetectorRef,
+        public BOManager: TBOManager,
+        public snackBar: MatSnackBar) {
     this.BOManager.BigButtonRow = false;
     this.BOManager.IsDebug = false;
     this.SL = new TStringList();
@@ -119,7 +128,6 @@ export class AppComponent implements OnInit {
 
   autoLoad() {
     const t = localStorage.getItem(this.autoSaveDataKey);
-
     if (t === undefined) {
       // do nothing
     } else if (t === null) {
@@ -234,6 +242,18 @@ export class AppComponent implements OnInit {
     this.JsonInfoVisible = !this.JsonInfoVisible;
   }
 
+  toggleConfig() {
+    this.ConfigVisible = !this.ConfigVisible;
+  }
+
+  toggleComponents() {
+    this.ComponentsVisible = !this.ComponentsVisible;
+  }
+
+  toggleSonstiges() {
+    this.SonstigesVisible = !this.SonstigesVisible;
+  }
+
   toggleLegend() {
     this.LegendVisible = !this.LegendVisible;
     this.TextAreaLegendVisible = false;
@@ -267,14 +287,6 @@ export class AppComponent implements OnInit {
     this.EventVisible = false;
     this.ParamsVisible = false;
     this.PropsVisible = false;
-
-    // this.TextAreaVisible = false;
-    // this.PreTextVisible = false;
-    // this.JsonInfoVisible = false;
-    // this.LegendVisible = false;
-    // this.TextAreaLegendVisible = false;
-    // this.PreTextLegendVisible = false;
-
 
     switch (p) {
       case Page.Bib: this.BibVisible = true; break;
@@ -627,8 +639,28 @@ export class AppComponent implements OnInit {
     }
   }
 
-  toggleIconBar() {
-    this.IconBarVisible = !this.IconBarVisible;
+  toggleButtonPanel() {
+    this.ButtonPanelVisible = !this.ButtonPanelVisible;
+  }
+
+  toggleCommandBar() {
+    this.CommandBarVisible = !this.CommandBarVisible;
+  }
+
+  toggleExplorerBar() {
+    this.ExplorerBarVisible = !this.ExplorerBarVisible;
+  }
+
+  toggleExplorerLine() {
+    this.ExplorerLineVisible = !this.ExplorerLineVisible;
+  }
+
+  toggleBigButtonRow() {
+    this.BOManager.BigButtonRow = !this.BOManager.BigButtonRow;
+  }
+
+  toggleDebug() {
+    this.BOManager.IsDebug = !this.BOManager.IsDebug;
   }
 
   toggleThrowoutsRow() {
@@ -722,7 +754,6 @@ export class AppComponent implements OnInit {
       s += t;
       s += '\r\n';
     }
-
     ed.EventData = s;
 
     this.onDataAvailable(ed);
@@ -962,14 +993,6 @@ export class AppComponent implements OnInit {
 
   toggleConn() {
     this.ConnVisible = !this.ConnVisible;
-  }
-
-  showMore() {
-    this.more = true;
-  }
-
-  showLess() {
-    this.more = false;
   }
 
 }

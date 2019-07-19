@@ -1,8 +1,9 @@
-﻿# FR03E1
+﻿# FR03E
 
-FR03E1 alias FREO is the event-only Angular fat client application for the FR (fleetrace) family of projects.
+FR03E is the set of event-only Angular fat client applications for the FR (fleetrace) project.
 
 Use the base-href value of `/freo/` when the build is intended to be served from a Delphi application.
+Use the base-href value of `/frjk/` when the build is intended to be served from a Jekyll site.
 
 Use a folder comparison against FR03A1 to see what is different between the two. Read the readme file for the FR03A1 project.
 

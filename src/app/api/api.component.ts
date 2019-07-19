@@ -18,6 +18,7 @@ cls = clear TestOutput variable
 
 const postButtonRowLegend = `
 --- post-button-row ---
+Push E = posting EventDataText to /api/event-data
 Push EJ = posting EventDataJSON to /api/event-data-json
 Push RJ = posting RaceDataJSON to /api/race-data-json
 
@@ -139,6 +140,12 @@ export class ApiComponent implements OnInit {
   }
 
   // --- post-button-row ---
+
+  pushE() {
+    this.Info = 'posting EventData to api/event-data';
+    const t = this.BOManager.BO.Save();
+    this.apiService.pushEventData(t).subscribe(data => this.TestOutput = data.retvalue);
+  }
 
   pushEJ() {
     this.Info = 'posting EventDataJSON to api/event-data-json';

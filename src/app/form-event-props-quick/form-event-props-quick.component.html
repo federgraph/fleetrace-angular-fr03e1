@@ -9,10 +9,10 @@
 </div>
 
 <div *ngIf="RadioBarVisible" class="radio-button-row">
-        <mat-radio-group [(ngModel)]="schemaCode">
-            <mat-radio-button class="radio-button" *ngFor="let s of schemas; let i = index" [value]=i>{{s}}</mat-radio-button>
-        </mat-radio-group>
-    </div>
+    <mat-radio-group [(ngModel)]="schemaCode">
+        <mat-radio-button class="radio-button" *ngFor="let s of schemas; let i = index" [value]=i>{{s}}</mat-radio-button>
+    </mat-radio-group>
+</div>
 
 <div class="checkbox-row">
     <mat-checkbox [(ngModel)]="isTimed">Is Timed</mat-checkbox>

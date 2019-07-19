@@ -24,7 +24,7 @@
 
     <mat-card class="main-card">
 
-        <ng-container>
+        <ng-container *ngIf="ButtonPanelVisible">
             <div class="button-line">
                 <button mat-stroked-button color="primary" (click)="noop()">Blank</button>
                 <button mat-stroked-button color="primary" (click)="toggleRows()">Rows</button>
@@ -74,6 +74,111 @@
         <app-event-tab *ngIf=EventVisible #eventTab [EventName]="EventName"></app-event-tab>
     </mat-card>
 
+    <mat-card class="second-card">
+        <button mat-icon-button (click)="toggleButtonPanel()">
+            <mat-icon *ngIf="!this.ButtonPanelVisible">dashboard</mat-icon>
+            <mat-icon *ngIf="this.ButtonPanelVisible" color="primary">dashboard</mat-icon>
+        </button>
+        <button mat-icon-button (click)="toggleExplorerLine()">
+            <mat-icon *ngIf="ExplorerLineVisible" color="accent">maximize</mat-icon>
+            <mat-icon *ngIf="!ExplorerLineVisible">maximize</mat-icon>
+        </button>
+        <button mat-icon-button (click)="toggleExplorerBar()">
+            <mat-icon *ngIf="ExplorerBarVisible" color="primary">explore</mat-icon>
+            <mat-icon *ngIf="!ExplorerBarVisible">explore</mat-icon>
+        </button>
+        <button mat-icon-button (click)="toggleCommandBar()">
+            <mat-icon *ngIf="CommandBarVisible" color="accent">functions</mat-icon>
+            <mat-icon *ngIf="!CommandBarVisible">functions</mat-icon>
+        </button>
+    </mat-card>
+
+    <mat-card class="second-card">
+        <button mat-icon-button (click)="toggleLegend()">
+            <mat-icon *ngIf="LegendVisible" color="primary">camera</mat-icon>
+            <mat-icon *ngIf="!LegendVisible">camera</mat-icon>
+        </button>
+        <button mat-icon-button (click)="toggleJsonInfo()">
+            <mat-icon *ngIf="JsonInfoVisible" color="primary">gesture</mat-icon>
+            <mat-icon *ngIf="!JsonInfoVisible">gesture</mat-icon>
+        </button>        
+        <button mat-icon-button (click)="toggleTextArea()">
+            <mat-icon *ngIf="TextAreaVisible" color="primary">edit</mat-icon>
+            <mat-icon *ngIf="!TextAreaVisible">edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="togglePreText()">
+            <mat-icon *ngIf="PreTextVisible" color="primary">format_align_justify</mat-icon>
+            <mat-icon *ngIf="!PreTextVisible">format_align_justify</mat-icon>
+        </button>
+        <button mat-icon-button (click)="toggleConfig()">
+            <mat-icon *ngIf="ConfigVisible" color="primary">style</mat-icon>
+            <mat-icon *ngIf="!ConfigVisible">style</mat-icon>
+        </button>
+        <!-- <button mat-icon-button (click)="toggleComponents()">
+            <mat-icon *ngIf="ComponentsVisible" color="primary">category</mat-icon>
+            <mat-icon *ngIf="!ComponentsVisible">category</mat-icon>
+        </button> -->
+        <button mat-icon-button (click)="toggleSonstiges()">
+            <mat-icon *ngIf="SonstigesVisible" color="primary">landscape</mat-icon>
+            <mat-icon *ngIf="!SonstigesVisible">landscape</mat-icon>
+        </button>
+
+        <button mat-icon-button *ngIf="LinkButtonVisible" (click)="toggleConn()">
+            <mat-icon color="primary">link</mat-icon>
+        </button>
+    </mat-card>
+
+    <mat-card class="second-card" *ngIf="ExplorerLineVisible">
+        <pre>--- <span class="color-accent">Race {{CurrentRace}}</span> --- Bib {{CurrentBib}} ---</pre>
+    </mat-card>
+
+    <mat-card class="second-card" *ngIf="ExplorerBarVisible">
+        <button mat-icon-button (click)="raceDeltaBtnClick(-1)">
+            <mat-icon>chevron_left</mat-icon>
+        </button>
+        <button mat-icon-button (click)="findCurrentE()">
+            <mat-icon [matBadge]="CurrentRace" color="primary">directions_run</mat-icon>
+        </button>
+        <button mat-icon-button (click)="raceDeltaBtnClick(1)">
+            <mat-icon>chevron_right</mat-icon>
+        </button>
+
+        <button mat-icon-button (click)="bow(-1)">
+            <mat-icon>chevron_left</mat-icon>
+        </button>
+        <button mat-icon-button (click)="findCurrentB()">
+            <mat-icon [matBadge]="CurrentBib" color="primary">person</mat-icon>
+        </button>
+        <button mat-icon-button (click)="bow(1)">
+            <mat-icon>chevron_right</mat-icon>
+        </button>
+    </mat-card>
+
+    <mat-card class="second-card" *ngIf="CommandBarVisible">
+        <button mat-icon-button (click)="autoLoad()">
+            <mat-icon color="accent">replay</mat-icon>
+        </button>
+        <button mat-icon-button (click)="autoSave()">
+            <mat-icon color="accent">save</mat-icon>
+        </button>
+
+        <button mat-icon-button (click)="enableRaceBtnClick()">
+            <mat-icon color="accent">rowing</mat-icon>
+        </button>
+        <button mat-icon-button (click)="clearTimepointBtnClick()">
+            <mat-icon color="accent">delete_outline</mat-icon>
+        </button>
+        <button mat-icon-button (click)="clearRaceBtnClick()">
+            <mat-icon color="accent">delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="clearBtnClick()">
+            <mat-icon color="accent">delete_forever</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="updateEvent()">
+            <mat-icon color="accent">redo</mat-icon>
+        </button>
+    </mat-card>
+
     <mat-card class="second-card" *ngIf=TabsVisible>
     <mat-tab-group>
 
@@ -81,20 +186,31 @@
         <app-help-text #helpTab></app-help-text>
     </mat-tab>
 
-    <mat-tab label="Legend" *ngIf=LegendVisible>
+    <mat-tab *ngIf=LegendVisible>
+        <ng-template mat-tab-label>
+            <mat-icon class="tab-icon">camera</mat-icon>
+            Legend
+        </ng-template>
         <app-icon-legend></app-icon-legend>
     </mat-tab>
     
     <mat-tab label="Json" *ngIf="JsonInfoVisible">
+        <ng-template mat-tab-label>
+            <mat-icon class="tab-icon">gesture</mat-icon>
+            Json
+        </ng-template>
         <app-json-info [race]=CurrentRace></app-json-info>
     </mat-tab>
 
-    <mat-tab label="Text Area" *ngIf=TextAreaVisible>
+    <mat-tab *ngIf=TextAreaVisible>
+        <ng-template mat-tab-label>
+            <mat-icon class="tab-icon">edit</mat-icon>
+            Text Area
+        </ng-template>
         <mat-card class="scroll-card">
         <mat-card-title>Text Area</mat-card-title>
         <mat-card-content>
 
-        <ng-container *ngIf="!BOManager.BigButtonRow">
             <button mat-icon-button (click)="memoClear()">
                 <mat-icon>clear</mat-icon>
             </button>
@@ -119,7 +235,6 @@
             <button mat-icon-button (click)="toggleTextAreaLegend()">
                 <mat-icon>camera</mat-icon>
             </button>
-        </ng-container>
 
         <div class="memo-form">
             <mat-form-field class="memo">
@@ -134,12 +249,15 @@
         </mat-card>
     </mat-tab>
 
-    <mat-tab label="Pre Text">
+    <mat-tab *ngIf="PreTextVisible">
+        <ng-template mat-tab-label>
+            <mat-icon class="tab-icon">format_align_justify</mat-icon>
+            Pre Text
+        </ng-template>
         <mat-card class="scroll-card">
         <mat-card-title>Pre Text</mat-card-title>
         <mat-card-content>
 
-        <ng-container>
             <button mat-icon-button (click)="clearTextOutput()">
                 <mat-icon>clear</mat-icon>
             </button>
@@ -161,7 +279,6 @@
             <button mat-icon-button (click)="togglePreTextLegend()">
                 <mat-icon>camera</mat-icon>
             </button>
-        </ng-container>
 
         <pre>{{TestOutput}}</pre>
 
@@ -170,36 +287,31 @@
         </mat-card>
     </mat-tab>
 
-    <mat-tab label="Config">
-        <ng-container id="icon-bar" *ngIf="IconBarVisible">
-            <!-- <button mat-icon-button (click)="toggleLegend()">
-                <mat-icon color="primary">camera</mat-icon>
-            </button> -->
-            <button mat-icon-button (click)="reduceToParams()">
-                <mat-icon color="primary">ac_unit</mat-icon>
-            </button>
-            <button mat-icon-button (click)="reduceToProps()">
-                <mat-icon color="primary">settings</mat-icon>
-            </button>
-            <!-- <button mat-icon-button (click)="reduceToPreText()">
-                <mat-icon color="primary">format_align_justify</mat-icon>
-            </button>
-            <button mat-icon-button (click)="reduceToTextArea()">
-                <mat-icon color="primary">edit</mat-icon>
-            </button>
-            <button mat-icon-button (click)="reduceToJsonInfo()">
-                <mat-icon color="primary">gesture</mat-icon>
-            </button> -->
-            <button mat-icon-button (click)="reduceToEvent()">
-                <mat-icon>event</mat-icon>
-            </button>
-        </ng-container>
+    <mat-tab *ngIf="ConfigVisible">
+        <ng-template mat-tab-label>
+            <mat-icon class="tab-icon">style</mat-icon>
+            Config
+        </ng-template>
+       <button mat-icon-button (click)="reduceToParams()">
+            <mat-icon color="primary">ac_unit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="reduceToProps()">
+            <mat-icon color="primary">settings</mat-icon>
+        </button>
+        <button mat-icon-button (click)="reduceToEvent()">
+            <mat-icon>event</mat-icon>
+        </button>
         <app-form-event-params-quick *ngIf="ParamsVisible" (paramsChanged)="onParamsChanged($event)"></app-form-event-params-quick>
         <app-form-event-props-quick *ngIf="PropsVisible" (propsChanged)="onPropsChanged($event)"></app-form-event-props-quick>
     </mat-tab>
 
-    <mat-tab label="Sonstiges">
+    <mat-tab *ngIf="SonstigesVisible">
+        <ng-template mat-tab-label>
+            <mat-icon class="tab-icon">landscape</mat-icon>
+            Sonstiges
+        </ng-template>
         <app-featured-event (dataAvailable)="onDataAvailable($event)"></app-featured-event>
+        <!-- <app-featured-html (dataAvailable)="onDataAvailable($event)"></app-featured-html> -->
         <app-api [race]=CurrentRace (dataAvailable)="onDataAvailable($event)"></app-api>
         <app-connection-control *ngIf="ConnectionBarVisible" #connBar></app-connection-control>
 
@@ -216,7 +328,6 @@
 
         <app-result-hash></app-result-hash>
         <app-result-upload [race]=CurrentRace></app-result-upload>
-
     </mat-tab>
 
     </mat-tab-group>

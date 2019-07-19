@@ -83,14 +83,64 @@ export const ToolbarIcons = [
     [IconEnum.help, 'Help', IconAction.Toggle, IconColor.Normal, ''],
 ];
 
-export const IconbarIcons = [
-    // [IconEnum.camera, 'Icon Legend', IconAction.Toggle, IconColor.Primary, ''],
+export const EventNavIcons = [
+    [IconEnum.chevron_left, 'Race down', IconAction.Decrement, IconColor.Normal, ''],
+    [IconEnum.directions_run, 'Race', IconAction.DisplayAndFind, IconColor.Normal, ''],
+    [IconEnum.chevron_right, 'Race up', IconAction.Increment, IconColor.Normal, ''],
+
+    [IconEnum.chevron_left, 'Bib down', IconAction.Decrement, IconColor.Normal, ''],
+    [IconEnum.person, 'Bib', IconAction.DisplayAndFind, IconColor.Normal, ''],
+    [IconEnum.chevron_right, 'Bib up', IconAction.Increment, IconColor.Normal, ''],
+];
+
+export const ConfigIcons = [
     [IconEnum.ac_unit, 'Event Params form', IconAction.ReduceTo, IconColor.Primary, ''],
     [IconEnum.settings, 'Event Properties form', IconAction.ReduceTo, IconColor.Primary, ''],
     [IconEnum.event, 'Event', IconAction.ReduceTo, IconColor.Normal, ''],
-    // [IconEnum.format_align_justify, 'Pre Text', IconAction.ReduceTo, IconColor.Primary, ''],
-    // [IconEnum.edit, 'Text Area', IconAction.ReduceTo, IconColor.Primary, ''],
-    // [IconEnum.gesture, 'Json Info', IconAction.ReduceTo, IconColor.Primary, ''],
+];
+
+export const CommandIcons = [
+    [IconEnum.replay, 'Load from local storage', IconAction.Execute, IconColor.Accent, ''],
+    [IconEnum.save, 'Save to local storage', IconAction.Execute, IconColor.Accent, ''],
+    [IconEnum.rowing, 'Race Enabled', IconAction.Toggle, IconColor.Accent, ''],
+    [IconEnum.delete_outline, 'Clear Timepoint', IconAction.Execute, IconColor.Accent, ''],
+    [IconEnum.delete, 'Clear Race', IconAction.Execute, IconColor.Accent, ''],
+    [IconEnum.delete_forever, 'Clear', IconAction.Execute, IconColor.Accent, ''],
+    [IconEnum.redo, 'Update Event', IconAction.Execute, IconColor.Accent, '']
+];
+
+export const CardToggleIcons = [
+    [IconEnum.dashboard, 'Panel', IconAction.Toggle, IconColor.Primary, 'toggleButtonPanel()'],
+    [IconEnum.maximize, 'Explorer Line', IconAction.Toggle, IconColor.Accent, ''],
+    [IconEnum.explore, 'Explorer Bar', IconAction.Toggle, IconColor.Primary, 'toggleExplorerBar()'],
+    [IconEnum.functions, 'Command Bar', IconAction.Toggle, IconColor.Accent, ''],
+];
+
+export const TabToggleIcons = [
+    [IconEnum.camera, 'Legend Tab', IconAction.Toggle, IconColor.Primary, ''],
+    [IconEnum.gesture, 'Json Tab', IconAction.Toggle, IconColor.Primary, ''],
+    [IconEnum.edit, 'Text Area Tab', IconAction.Toggle, IconColor.Primary, ''],
+    [IconEnum.gesture, 'Pre Text Tab', IconAction.Toggle, IconColor.Primary, ''],
+    [IconEnum.style, 'Config Tab', IconAction.Toggle, IconColor.Primary, ''],
+    // [IconEnum.category, 'Components Tab', IconAction.Toggle, IconColor.Primary, ''],
+    [IconEnum.landscape, 'Sonstiges Tab', IconAction.Toggle, IconColor.Primary, ''],
+];
+
+export const OptionToggleIcons = [
+    [IconEnum.pets, 'Big Button Row', IconAction.Toggle, IconColor.Normal, ''],
+    [IconEnum.all_inclusive, 'Debug', IconAction.Toggle, IconColor.Normal, ''],
+];
+
+export const ComponentToggleIcons = [
+    [IconEnum.local_library, 'Assets', IconAction.Toggle, IconColor.Primary, ''],
+    [IconEnum.cloud, 'Event Menu', IconAction.Toggle, IconColor.Primary, ''],
+    [IconEnum.archive, 'Save Event Data', IconAction.Toggle, IconColor.Primary, ''],
+    [IconEnum.unarchive, 'Load Event Data', IconAction.Toggle, IconColor.Primary, ''],
+    [IconEnum.link, 'Connection Bar', IconAction.Toggle, IconColor.Primary, ''],
+];
+
+export const CheckbarIcons = [
+    [IconEnum.cached, 'Try Toggle Strict', IconAction.Execute, IconColor.Normal, 'tryToggleStrict()'],
 ];
 
 export const EditbarIcons = [
