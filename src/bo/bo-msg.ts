@@ -1,15 +1,16 @@
-﻿import { TBaseMsg } from './bo-msg-base';
+import { TStringList } from '../util/fb-strings';
+import { TBaseMsg } from './bo-msg-base';
 import { TMsgParser, TMsgType } from './bo-msg-parser';
+import { TMsgToken } from './bo-msg-token';
 import { TBO } from '../fr/fr-bo';
 import { TUtils } from '../util/fb-classes';
 import { TEventRowCollectionItem, TEventNode } from '../col/event/event-row-collection';
 import { TEventBO } from '../col/event/event-bo';
 
 export class TBOMsg extends TBaseMsg {
-
   MsgParser: TMsgParser;
-  ItemPos: number = 0;
-  AthleteID: number = 0;
+  ItemPos = 0;
+  AthleteID = 0;
 
   constructor(public BO: TBO) {
     super();
@@ -49,7 +50,7 @@ export class TBOMsg extends TBaseMsg {
       this.MsgType = TMsgType.Option;
     } else {
       const temp: string = this.MsgValue.toLowerCase();
-      if ((temp === 'empty') || (temp === 'null') || (temp === '99:99:99.99')) {
+      if (temp === 'empty' || temp === 'null' || temp === '99:99:99.99') {
         this.MsgValue = '-1';
       }
       const cr: TEventRowCollectionItem = this.FindCR();
@@ -96,7 +97,7 @@ export class TBOMsg extends TBaseMsg {
     }
     const s: string = this.RunID.substring(1);
     const i: number = TUtils.StrToIntDef(s, -1);
-    if ( i < 1 || i > this.BO.BOParams.RaceCount) {
+    if (i < 1 || i > this.BO.BOParams.RaceCount) {
       return '';
     }
     return 'col_R' + i.toString();
@@ -114,13 +115,13 @@ export class TBOMsg extends TBaseMsg {
     return i;
   }
 
-  ClearResult() {
+  override ClearResult() {
     super.ClearResult();
     this.ItemPos = -1;
     this.AthleteID = -1;
   }
 
-  DispatchProt(): boolean {
+  override DispatchProt(): boolean {
     this.ClearResult();
 
     // ignore Errors in compact format-------------
@@ -130,7 +131,7 @@ export class TBOMsg extends TBaseMsg {
     }
 
     // Comments-----------------------------------
-    if ((this.Prot === '') || this.Prot.startsWith('//') || this.Prot.startsWith('#')) {
+    if (this.Prot === '' || this.Prot.startsWith('//') || this.Prot.startsWith('#')) {
       this.MsgType = TMsgType.Comment;
       return true;
     }

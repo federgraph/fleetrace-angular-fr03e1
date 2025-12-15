@@ -1,28 +1,34 @@
 <mat-card class="scroll-card">
-<mat-card-title>Event Properties Quick</mat-card-title>
-<mat-card-content>
+  <mat-card-title>Event Properties Quick</mat-card-title>
+  <mat-card-content>
+    @if (RadioBarVisible) {
+      <div class="radio-button-row">
+        <mat-radio-group [(ngModel)]="scoringSystem">
+          @for (s of systems; track s; let i = $index) {
+            <mat-radio-button class="radio-button" [value]="i">{{ s }}</mat-radio-button>
+          }
+        </mat-radio-group>
+      </div>
+    }
 
-<div *ngIf="RadioBarVisible" class="radio-button-row">
-    <mat-radio-group [(ngModel)]="scoringSystem">
-        <mat-radio-button class="radio-button" *ngFor="let s of systems; let i = index" [value]=i>{{s}}</mat-radio-button>
-    </mat-radio-group>
-</div>
+    @if (RadioBarVisible) {
+      <div class="radio-button-row">
+        <mat-radio-group [(ngModel)]="schemaCode">
+          @for (s of schemas; track s; let i = $index) {
+            <mat-radio-button class="radio-button" [value]="i">{{ s }}</mat-radio-button>
+          }
+        </mat-radio-group>
+      </div>
+    }
 
-<div *ngIf="RadioBarVisible" class="radio-button-row">
-    <mat-radio-group [(ngModel)]="schemaCode">
-        <mat-radio-button class="radio-button" *ngFor="let s of schemas; let i = index" [value]=i>{{s}}</mat-radio-button>
-    </mat-radio-group>
-</div>
+    <div class="checkbox-row">
+      <mat-checkbox [(ngModel)]="isTimed">Is Timed</mat-checkbox>
+    </div>
 
-<div class="checkbox-row">
-    <mat-checkbox [(ngModel)]="isTimed">Is Timed</mat-checkbox>
-</div>
-
-<div class="button-row">
-    <button mat-raised-button type="button" class="btn" (click)="reset()">Reset</button>
-    <button mat-raised-button type="button" class="btn" (click)="patch()">Patch</button>
-    <button mat-raised-button type="submit" class="btn" (click)="submit()">Submit</button>
-</div>
-
-</mat-card-content>
+    <div class="button-row">
+      <button mat-raised-button type="button" class="btn" (click)="reset()">Reset</button>
+      <button mat-raised-button type="button" class="btn" (click)="patch()">Patch</button>
+      <button mat-raised-button type="submit" class="btn" (click)="submit()">Submit</button>
+    </div>
+  </mat-card-content>
 </mat-card>

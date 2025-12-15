@@ -1,10 +1,9 @@
 ﻿<mat-card class="scroll-card">
-<mat-card-title>Help</mat-card-title>
-<mat-card-content>
+  <mat-card-title>Help</mat-card-title>
+  <mat-card-content>
+    <p>See https://federgraph.github.io/fleetrace-help-en/angular/FREO.html.</p>
 
-<p>See https://federgraph.github.io/fleetrace-help-en/angular/FREO.html.</p>
-
-<pre>
+    <pre>
 FR = fleet race
 SPA = single page application
 FREO = Fleet Race Event Only app
@@ -12,111 +11,149 @@ Local Storage Key = 'fr-event-data'
 Project Name = FR03E1
 Semantic Version = 1.0.0-beta.x
 Last Change = 19 July 2019
-</pre>
+</pre
+    >
 
-<ul>
-    <li>A Typescript / Angular app.</li>
-    <li>You can input timing data and compute results locally.</li>
-    <li>Since you own the data you could get a license, host the app on your site, and serve results to at least all the entries in a race.</li>
-</ul>
+    <ul>
+      <li>A Typescript / Angular app.</li>
+      <li>You can input timing data and compute results locally.</li>
+      <li>
+        Since you own the data you could get a license, host the app on your site, and serve results
+        to at least all the entries in a race.
+      </li>
+    </ul>
 
-<p>FREO is the event only version.</p>
+    <p>FREO is the event only version.</p>
 
-<h4>Getting Started</h4>
+    <h4>Getting Started</h4>
 
-<p>I recommend that you try out the following steps, it should work:</p>
+    <p>I recommend that you try out the following steps, it should work:</p>
 
-<ol>
-    <li>Click Reset button, it will load the default test event and show the event table below the input area.</li>
-    <li>The test event has two races.</li>
-    <li>Navigate through the races with R- and R+ buttons.</li>
-    <li>Click Next button, it will take you to Race 1.</li>
-    <li>Because button Next has figured out where we are in the progress of the event - the first race.</li>
-    <li>Notice how the current race is displayed as part of the input header line.</li>
-    <li>Click on the circular fab buttons (floating action buttons).</li>
-    <li>At least once: select the dnf radio button before you click.</li>
-    <li>Notice how the radio selection will jump back to finish when you click a fab.</li>
-    <li>The fab just clicked will turn blue.</li>
-    <li>Click Next again when all fabs have been used.</li>
-    <li>You will be advanced to the next race, please check.</li>
-    <li>Continue with the fabs.</li>
-    <li>Play with the toolbar icon buttons, most of them have the Reduce To action type.</li>
-    <li>Some of the buttons will toggle, some will show, hide, or have an action type of Reduce To.</li>
-    <li>Go ahead and input finish positions for Race 2.</li>
-    <li>There are only two races in this test event.</li>
-    <li>When done, examine that series scoring is correct in table event.</li>
-    <li>Adjust the number of throwouts with button T+ and T-.</li>
-    <li>Note that you can sort the html table with a click on the column header.</li>
-    <li>Find the Pre-Text area and use it to copy result data in compact format to the clipboard.</li>
-    <li>Try and paste the text data you just copied into your favorite code editor program.</li>
-    <li>I assume that you test in Chrome on the desktop before you use it on a tablet or even a phone.</li>
-</ol>
+    <ol>
+      <li>
+        Click Reset button, it will load the default test event and show the event table below the
+        input area.
+      </li>
+      <li>The test event has two races.</li>
+      <li>Navigate through the races with R- and R+ buttons.</li>
+      <li>Click Next button, it will take you to Race 1.</li>
+      <li>
+        Because button Next has figured out where we are in the progress of the event - the first
+        race.
+      </li>
+      <li>Notice how the current race is displayed as part of the input header line.</li>
+      <li>Click on the circular fab buttons (floating action buttons).</li>
+      <li>At least once: select the dnf radio button before you click.</li>
+      <li>Notice how the radio selection will jump back to finish when you click a fab.</li>
+      <li>The fab just clicked will turn blue.</li>
+      <li>Click Next again when all fabs have been used.</li>
+      <li>You will be advanced to the next race, please check.</li>
+      <li>Continue with the fabs.</li>
+      <li>Play with the toolbar icon buttons, most of them have the Reduce To action type.</li>
+      <li>
+        Some of the buttons will toggle, some will show, hide, or have an action type of Reduce To.
+      </li>
+      <li>Go ahead and input finish positions for Race 2.</li>
+      <li>There are only two races in this test event.</li>
+      <li>When done, examine that series scoring is correct in table event.</li>
+      <li>Adjust the number of throwouts with button T+ and T-.</li>
+      <li>Note that you can sort the html table with a click on the column header.</li>
+      <li>
+        Find the Pre-Text area and use it to copy result data in compact format to the clipboard.
+      </li>
+      <li>Try and paste the text data you just copied into your favorite code editor program.</li>
+      <li>
+        I assume that you test in Chrome on the desktop before you use it on a tablet or even a
+        phone.
+      </li>
+    </ol>
 
-<p>You need to input a finish position or a status value for all the entries in a race.</p>
+    <p>You need to input a finish position or a status value for all the entries in a race.</p>
 
-<ul>
-    <li>A regatta has events.</li>
-    <li>An event is sometimes called a division.</li>
-    <li>An event has races and entries, columns and rows.</li>
-    <li>The entries in a race are called bibs, corresponding to bows or bow numbers.</li>
-    <li>By tapping on fabs you finish off bibs until done.</li>
-    <li>You can assign a status value like dnf to a bib instead of a finish position.</li>
-    <li>You can also erase the time for the current bib or reset the status to ok.</li>
-</ul>
+    <ul>
+      <li>A regatta has events.</li>
+      <li>An event is sometimes called a division.</li>
+      <li>An event has races and entries, columns and rows.</li>
+      <li>The entries in a race are called bibs, corresponding to bows or bow numbers.</li>
+      <li>By tapping on fabs you finish off bibs until done.</li>
+      <li>You can assign a status value like dnf to a bib instead of a finish position.</li>
+      <li>You can also erase the time for the current bib or reset the status to ok.</li>
+    </ul>
 
-<p>Some magic will be used, called strict input mode.</p>
+    <p>Some magic will be used, called strict input mode.</p>
 
-<ul>
-    <li>When you click a fab - a message is generated with a finish higher than the numbers of entries in the race.</li>
-    <li>In strict input mode the program automatically maintains a contiguous range of finish positions.</li>
-    <li>You do not have to worry about the actual position.</li>
-    <li>The entry will receive the next free position.</li>
-    <li>Just tap on a fab, the rest is automatic.</li>
-    <li>Note that when an event is loaded, it is done in relaxed input mode, and actual finish positions will be used.</li>
-</ul>
+    <ul>
+      <li>
+        When you click a fab - a message is generated with a finish higher than the numbers of
+        entries in the race.
+      </li>
+      <li>
+        In strict input mode the program automatically maintains a contiguous range of finish
+        positions.
+      </li>
+      <li>You do not have to worry about the actual position.</li>
+      <li>The entry will receive the next free position.</li>
+      <li>Just tap on a fab, the rest is automatic.</li>
+      <li>
+        Note that when an event is loaded, it is done in relaxed input mode, and actual finish
+        positions will be used.
+      </li>
+    </ul>
 
-<p>On the desktop with only eight entries in the race, everything seems to be fast and snappy.</p>
+    <p>
+      On the desktop with only eight entries in the race, everything seems to be fast and snappy.
+    </p>
 
-<ul>
-    <li>You can watch both tables while you are finishing off bibs.</li>
-    <li>You can afford to compute the whole event after each message.</li>
-    <li>But the phone cannot show big tables.</li>
-    <li>Small devices may be slow if everything is computed and displayed after each input message.</li>
-    <li>They will be slow if the number of entries in the event is big.</li>
-    <li>This is when you should use the message queue.</li>
-    <li>Use of the queue is toggled with the paper clip icon button.</li>
-    <li>When the queue is active you see two additional icons.</li>
-    <li>When using the queue, you need to manually trigger the processing of recorded messages.</li>
-    <li>Just click on the button that has the blue badge for the number of items in the queue.</li>
-    <li>You can discard the content of the queue and / or show the content of the queue in Pre-Text.</li>
-</ul>
+    <ul>
+      <li>You can watch both tables while you are finishing off bibs.</li>
+      <li>You can afford to compute the whole event after each message.</li>
+      <li>But the phone cannot show big tables.</li>
+      <li>
+        Small devices may be slow if everything is computed and displayed after each input message.
+      </li>
+      <li>They will be slow if the number of entries in the event is big.</li>
+      <li>This is when you should use the message queue.</li>
+      <li>Use of the queue is toggled with the paper clip icon button.</li>
+      <li>When the queue is active you see two additional icons.</li>
+      <li>
+        When using the queue, you need to manually trigger the processing of recorded messages.
+      </li>
+      <li>
+        Just click on the button that has the blue badge for the number of items in the queue.
+      </li>
+      <li>
+        You can discard the content of the queue and / or show the content of the queue in Pre-Text.
+      </li>
+    </ul>
 
-<p>Change data, make corrections for a bib in a race.</p>
+    <p>Change data, make corrections for a bib in a race.</p>
 
-<ul>
-    <li>Select the bib first!</li>
-    <li>The bib from last used fab is already selected as current bib.</li>
-    <li>But you can make any of the bibs current with Bib- and Bib+</li>
-    <li>Pay attention to the radio buttons, select erase or ok to clear position or status.</li>
-    <li>Then the blue toy button will do the trick.</li>
-    <li>Note that you can do private what-if analysis in downloaded event data.</li>
-    <li>For example: What-if I had not been disqualified.</li>
-</ul>
+    <ul>
+      <li>Select the bib first!</li>
+      <li>The bib from last used fab is already selected as current bib.</li>
+      <li>But you can make any of the bibs current with Bib- and Bib+</li>
+      <li>Pay attention to the radio buttons, select erase or ok to clear position or status.</li>
+      <li>Then the blue toy button will do the trick.</li>
+      <li>Note that you can do private what-if analysis in downloaded event data.</li>
+      <li>For example: What-if I had not been disqualified.</li>
+    </ul>
 
-<p>What if there are problems, mistakes, special situations?</p>
+    <p>What if there are problems, mistakes, special situations?</p>
 
-<ul>
-    <li>What if I need to enter a percent penalty or a dpi penalty?</li>
-    <li>What if you need to correct a finish position?</li>
-    <li>You can edit the text data of the event and reload.</li>
-    <li>Use the Text-Area html element to do this.</li>
-    <li>Learn from the provided examples.</li>
-    <li>The examples will show you what the message format looks like.</li>
-    <li>To correct a finish position, add a race value message after switching to strict input mode.</li>
-    <li>Then press the read button.</li>
-</ul>
+    <ul>
+      <li>What if I need to enter a percent penalty or a dpi penalty?</li>
+      <li>What if you need to correct a finish position?</li>
+      <li>You can edit the text data of the event and reload.</li>
+      <li>Use the Text-Area html element to do this.</li>
+      <li>Learn from the provided examples.</li>
+      <li>The examples will show you what the message format looks like.</li>
+      <li>
+        To correct a finish position, add a race value message after switching to strict input mode.
+      </li>
+      <li>Then press the read button.</li>
+    </ul>
 
-<pre>
+    <pre>
     //in the text area html element
     //event data, loaded in relaxed input mode
     //relaxed input mode is implicit when reading data
@@ -124,43 +161,56 @@ Last Change = 19 July 2019
 
     EP.IM = Strict
     FR.*.W2.Bib2.RV=4
-</pre>
+</pre
+    >
 
-<p>Copy the finish positions from the black board after the fact.</p>
+    <p>Copy the finish positions from the black board after the fact.</p>
 
-<ul>
-    <li>This is a great use case.</li>
-    <li>You form a team of two.</li>
-    <li>One will read the finish list.</li>
-    <li>The other will tap on the fabs.</li>
-    <li>At first race: Create a new event with the appropriate start list count and race count.</li>
-    <li>Don’t forget to Save to local storage.</li>
-    <li>The next day, press Load before you continue with the next race.</li>
-</ul>
+    <ul>
+      <li>This is a great use case.</li>
+      <li>You form a team of two.</li>
+      <li>One will read the finish list.</li>
+      <li>The other will tap on the fabs.</li>
+      <li>
+        At first race: Create a new event with the appropriate start list count and race count.
+      </li>
+      <li>Don’t forget to Save to local storage.</li>
+      <li>The next day, press Load before you continue with the next race.</li>
+    </ul>
 
-<p>We take it easy with athlete names in this app.</p>
+    <p>We take it easy with athlete names in this app.</p>
 
-<ul>
-    <li>When race timing starts, entry registration has already finished.</li>
-    <li>When you do race timing you do not care about athlete names.</li>
-    <li>Entry info should be inserted into the prepared event data text you start out from.</li>
-    <li>My test data does not include athlete’s names anyways.</li>
-    <li>And the entries table most often will be empty.</li>
-    <li>In the light version I have removed all UI for Entries.</li>
-</ul>
+    <ul>
+      <li>When race timing starts, entry registration has already finished.</li>
+      <li>When you do race timing you do not care about athlete names.</li>
+      <li>Entry info should be inserted into the prepared event data text you start out from.</li>
+      <li>My test data does not include athlete’s names anyways.</li>
+      <li>And the entries table most often will be empty.</li>
+      <li>In the light version I have removed all UI for Entries.</li>
+    </ul>
 
-<p>Start with the recording of finish positions.</p>
+    <p>Start with the recording of finish positions.</p>
 
-<ul>
-    <li>Let’s hope that <em>they</em> have provided for consecutive bow numbers starting at 1.</li>
-    <li>For learning about the data format, have a look at normal and compact text output in the Pre-Text area.</li>
-    <li>You can bring up the Pre-Text area or Text-Area area with an icon button.</li>
-    <li>Please test on the desktop browser where you have a good keyboard and where it is convenient to use the clipboard.</li>
-</ul>
+    <ul>
+      <li>
+        Let’s hope that <em>they</em> have provided for consecutive bow numbers starting at 1.
+      </li>
+      <li>
+        For learning about the data format, have a look at normal and compact text output in the
+        Pre-Text area.
+      </li>
+      <li>You can bring up the Pre-Text area or Text-Area area with an icon button.</li>
+      <li>
+        Please test on the desktop browser where you have a good keyboard and where it is convenient
+        to use the clipboard.
+      </li>
+    </ul>
 
-<p>There are variations of the application, see Help file on GitHub.</p>
+    <p>There are variations of the application, see Help file on GitHub.</p>
 
-<p>FREO was developed and is maintained by federgraph.de, license is GPL 3.0, see repository on GitHub</p>
-
-</mat-card-content>
+    <p>
+      FREO was developed and is maintained by federgraph.de, license is GPL 3.0, see repository on
+      GitHub
+    </p>
+  </mat-card-content>
 </mat-card>

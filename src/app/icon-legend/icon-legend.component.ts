@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TBOManager } from '../../bo/bo-manager';
 import {
   IconData,
@@ -13,14 +13,16 @@ import {
   EditbarIcons,
   EventIcons,
 } from './icon-data';
+import { IconBarLegendComponent } from '../icon-bar-legend/icon-bar-legend.component';
+import { MaterialModule } from '../material/material.module';
 
 @Component({
   selector: 'app-icon-legend',
+  imports: [MaterialModule, IconBarLegendComponent],
   templateUrl: './icon-legend.component.html',
-  styleUrls: ['./icon-legend.component.css']
+  styleUrls: ['./icon-legend.component.css'],
 })
 export class IconLegendComponent {
-
   toolbarIcons: IconData[];
   cardToggleIcons: IconData[];
   tabToggleIcons: IconData[];
@@ -32,7 +34,9 @@ export class IconLegendComponent {
   preTextIcons: IconData[];
   eventIcons: IconData[];
 
-  constructor(public BOManager: TBOManager) {
+  public BOManager = inject(TBOManager);
+
+  constructor() {
     this.toolbarIcons = IconData.readIconData(ToolbarIcons);
     this.cardToggleIcons = IconData.readIconData(CardToggleIcons);
     this.tabToggleIcons = IconData.readIconData(TabToggleIcons);
@@ -44,5 +48,4 @@ export class IconLegendComponent {
     this.preTextIcons = IconData.readIconData(PreTextIcons);
     this.eventIcons = IconData.readIconData(EventIcons);
   }
-
 }

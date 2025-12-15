@@ -1,4 +1,4 @@
-import { Component, ViewChild, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef, OnInit, inject } from '@angular/core';
 
 import { BibComponent } from './bib/bib.component';
 import { EventComponent } from './event/event.component';
@@ -13,6 +13,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CurrentNumbers } from '../fr/fr-bo';
 import { IconData, PreTextIcons, TextAreaIcons } from './icon-legend/icon-data';
 import { ConnectionControlComponent } from './connection-control/connection-control.component';
+import { MaterialModule } from './material/material.module';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { IconBarLegendComponent } from './icon-bar-legend/icon-bar-legend.component';
+import { HelpComponent } from './help/help.component';
+import { FeaturedEventComponent } from './featured-event/featured-event.component';
+import { ResultHashComponent } from './result-hash/result-hash.component';
+import { ResultUploadComponent } from './result-upload/result-upload.component';
+import { ApiComponent } from './api/api.component';
+import { FormEventParamsQuickComponent } from './form-event-params-quick/form-event-params-quick.component';
+import { FormEventPropsQuickComponent } from './form-event-props-quick/form-event-props-quick.component';
+import { JsonInfoComponent } from './json-info/json-info.component';
+import { IconLegendComponent } from './icon-legend/icon-legend.component';
 
 enum Page {
   None,
@@ -31,8 +44,27 @@ enum Page {
 
 @Component({
   selector: 'app-root',
+  imports: [
+    CommonModule,
+    FormsModule,
+    MaterialModule,
+    HelpComponent,
+    HelpComponent,
+    FeaturedEventComponent,
+    ResultHashComponent,
+    ResultUploadComponent,
+    FormEventParamsQuickComponent,
+    FormEventPropsQuickComponent,
+    JsonInfoComponent,
+    IconLegendComponent,
+    IconBarLegendComponent,
+    TimingButtonsComponent,
+    BibComponent,
+    EventComponent,
+    ConnectionControlComponent,
+  ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   title = 'FREO';
@@ -105,11 +137,13 @@ export class AppComponent implements OnInit {
 
   textAreaIcons: IconData[];
   preTextIcons: IconData[];
+  ConnectionBarVisible: any;
 
-  constructor(
-        private cdref: ChangeDetectorRef,
-        public BOManager: TBOManager,
-        public snackBar: MatSnackBar) {
+  private cdref = inject(ChangeDetectorRef);
+  public BOManager = inject(TBOManager);
+  public snackBar = inject(MatSnackBar);
+
+  constructor() {
     this.BOManager.BigButtonRow = false;
     this.BOManager.IsDebug = false;
     this.SL = new TStringList();
@@ -148,7 +182,9 @@ export class AppComponent implements OnInit {
     localStorage.setItem(this.autoSaveDataKey, SL.Text);
   }
 
-  get EventName(): string { return this.BOManager.BO.EventProps.EventName; }
+  get EventName(): string {
+    return this.BOManager.BO.EventProps.EventName;
+  }
 
   updateThrowouts(): void {
     this.Throwouts = this.BOManager.BO.EventProps.Throwouts;
@@ -289,20 +325,41 @@ export class AppComponent implements OnInit {
     this.PropsVisible = false;
 
     switch (p) {
-      case Page.Bib: this.BibVisible = true; break;
+      case Page.Bib:
+        this.BibVisible = true;
+        break;
 
-      case Page.Race: this.RaceVisible = true; break;
-      case Page.Event: this.EventVisible = true; break;
+      case Page.Race:
+        this.RaceVisible = true;
+        break;
+      case Page.Event:
+        this.EventVisible = true;
+        break;
 
-      case Page.Params: this.ParamsVisible = true; break;
-      case Page.Props: this.PropsVisible = true; break;
-      case Page.TextArea: this.TextAreaVisible = true; break;
-      case Page.PreText: this.PreTextVisible = true; break;
-      case Page.HelpText: this.HelpTextVisible = true; break;
-      case Page.JsonInfo: this.JsonInfoVisible = true; break;
-      case Page.Legend: this.LegendVisible = true; break;
+      case Page.Params:
+        this.ParamsVisible = true;
+        break;
+      case Page.Props:
+        this.PropsVisible = true;
+        break;
+      case Page.TextArea:
+        this.TextAreaVisible = true;
+        break;
+      case Page.PreText:
+        this.PreTextVisible = true;
+        break;
+      case Page.HelpText:
+        this.HelpTextVisible = true;
+        break;
+      case Page.JsonInfo:
+        this.JsonInfoVisible = true;
+        break;
+      case Page.Legend:
+        this.LegendVisible = true;
+        break;
 
-      default: break;
+      default:
+        break;
     }
   }
 
@@ -342,7 +399,6 @@ export class AppComponent implements OnInit {
     this.updateFabs();
   }
 
-
   resetBtnClick() {
     this.reduceTo(Page.None);
 
@@ -369,16 +425,27 @@ export class AppComponent implements OnInit {
     this.reduceTo(Page.Event);
 
     switch (ev) {
-      case 1: this.readNameTest(); break;
-      case 2: this.readFleetTest(); break;
+      case 1:
+        this.readNameTest();
+        break;
+      case 2:
+        this.readFleetTest();
+        break;
 
-      case 3: this.read1991(); break;
-      case 4: this.read1997(); break;
+      case 3:
+        this.read1991();
+        break;
+      case 4:
+        this.read1997();
+        break;
 
-      case 5: this.readExample(); break;
-      default: this.readEmpty(); break;
+      case 5:
+        this.readExample();
+        break;
+      default:
+        this.readEmpty();
+        break;
     }
-
   }
 
   clearBtnClick() {
@@ -502,7 +569,9 @@ export class AppComponent implements OnInit {
         break;
 
       case 1:
-        const o = this.BOManager.BO.EventNode.FindBib(this.CurrentBib).Race[this.CurrentRace].inspect();
+        const o = this.BOManager.BO.EventNode.FindBib(this.CurrentBib).Race[
+          this.CurrentRace
+        ].inspect();
         this.TestOutput = JSON.stringify(o, null, 2);
         break;
     }
@@ -740,7 +809,7 @@ export class AppComponent implements OnInit {
   createNew(event: EventParams) {
     const ed: IEventDataItem = {
       EventName: 'New Event',
-      EventData: ''
+      EventData: '',
     };
 
     const sl: string[] = [];
@@ -851,7 +920,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  processQueue(calc: boolean = true) {
+  processQueue(calc = true) {
     let msg: string;
 
     while (this.BOManager.BO.msgQueueE.length > 0) {
@@ -878,12 +947,8 @@ export class AppComponent implements OnInit {
     }
   }
 
-  loadFeaturedEvent() {
-
-  }
-  noop() {
-
-  }
+  loadFeaturedEvent() {}
+  noop() {}
 
   handleWebSocketMsg(msg: string) {
     this.lastWebSocketMsg = msg;
@@ -899,14 +964,14 @@ export class AppComponent implements OnInit {
 
   onNotify(nid: number) {
     switch (nid) {
-      case 1: this.clearBtnClick();
+      case 1:
+        this.clearBtnClick();
     }
   }
 
-  initParams() {
-  }
+  initParams() {}
 
-  updateAfterProcessingQueue(calc: boolean = true) {
+  updateAfterProcessingQueue(calc = true) {
     if (calc && this.eventTab && this.EventVisible) {
       this.calcEvent();
       this.updateFabs();
@@ -918,9 +983,14 @@ export class AppComponent implements OnInit {
 
   handleUpdate(value: number) {
     switch (value) {
-      case 1: this.updateAfterProcessingQueue(); break;
-      case 2: this.showQueue(); break;
-      default: this.updateAll();
+      case 1:
+        this.updateAfterProcessingQueue();
+        break;
+      case 2:
+        this.showQueue();
+        break;
+      default:
+        this.updateAll();
     }
 
     this.updateAll();
@@ -994,5 +1064,4 @@ export class AppComponent implements OnInit {
   toggleConn() {
     this.ConnVisible = !this.ConnVisible;
   }
-
 }

@@ -5,7 +5,6 @@ import { TExcelExporter } from '../../fr/fr-excel-export';
 import { TStringList } from '../../util/fb-strings';
 
 export class JsonInfo {
-
   ee: TExcelExporter;
 
   constructor(public BOManager: TBOManager) {
@@ -133,7 +132,7 @@ export class JsonInfo {
     }
   }
 
-  getPenaltyLists(): Array<Array<string>> {
+  getPenaltyLists(): string[][] {
     const bo = this.BOManager.BO;
     const a = [];
     for (let r = 1; r <= bo.BOParams.RaceCount; r++) {
@@ -177,7 +176,6 @@ export class JsonInfo {
   }
 
   convertEventDataJson(o: EventDataJson): string[] {
-
     const a: string[] = [];
 
     for (const s1 of o.EventParams) {
@@ -228,5 +226,4 @@ export class JsonInfo {
 
     return a;
   }
-
 }
