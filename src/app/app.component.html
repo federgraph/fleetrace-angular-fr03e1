@@ -166,8 +166,12 @@
       }
     </button>
     <!-- <button mat-icon-button (click)="toggleComponents()">
-            <mat-icon *ngIf="ComponentsVisible" color="primary">category</mat-icon>
-            <mat-icon *ngIf="!ComponentsVisible">category</mat-icon>
+      @if (ComponentsVisible) {
+        <mat-icon color="primary">category</mat-icon>
+      }
+      @if (!ComponentsVisible) {
+        <mat-icon>category</mat-icon>
+      }
         </button> -->
     <button mat-icon-button (click)="toggleSonstiges()">
       @if (SonstigesVisible) {

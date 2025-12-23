@@ -9,7 +9,9 @@ export enum TEditPage {
   epDB,
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class TMainParams {
   DisabledEditPages: TEditPage[] = [];
 

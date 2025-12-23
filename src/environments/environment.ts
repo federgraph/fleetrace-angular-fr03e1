@@ -4,6 +4,5 @@
 
 export const environment = {
   production: false,
-  wantES5: true,
   apiHost: 'gs2022',
 };

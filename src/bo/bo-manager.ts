@@ -8,7 +8,9 @@ import { TMsgToken } from './bo-msg-token';
 import { TBO } from '../fr/fr-bo';
 import { TMainParams } from './bo-main-params';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class TBOManager {
   SL: TStringList;
 
